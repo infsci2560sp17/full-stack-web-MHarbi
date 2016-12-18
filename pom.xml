@@ -102,7 +102,6 @@
                 <version>1.1.2</version>
                 <configuration>
                 <processTypes>
-                    <!--<web>java $JAVA_OPTS -Dserver.port=$PORT -jar target/gs-spring-boot-0.1.0.jar</web>-->
                     <web>java $JAVA_OPTS -Dserver.port=$PORT -jar target/*.jar</web>
                 </processTypes>
                 </configuration>
