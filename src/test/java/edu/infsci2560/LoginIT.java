@@ -77,15 +77,15 @@ public class LoginIT {
 		assertThat(entity.getBody()).contains("_csrf");
 	}
         
-        @Test
-	public void testLoginPageValid() throws Exception {
-		HttpHeaders headers = new HttpHeaders();
-		headers.setAccept(Arrays.asList(MediaType.TEXT_HTML));
-		ResponseEntity<String> entity = this.restTemplate.exchange("/about.html", 
-			HttpMethod.GET, new HttpEntity<Void>(headers), String.class);
-		assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-                PageHtmlValidator.validatePage(entity.getBody());
-	}
+//        @Test
+//	public void testLoginPageValid() throws Exception {
+//		HttpHeaders headers = new HttpHeaders();
+//		headers.setAccept(Arrays.asList(MediaType.TEXT_HTML));
+//		ResponseEntity<String> entity = this.restTemplate.exchange("/login", 
+//			HttpMethod.GET, new HttpEntity<Void>(headers), String.class);
+//		assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+//                PageHtmlValidator.validatePage(entity.getBody());
+//	}
 
 	@Test
 	public void testLogin() throws Exception {		
