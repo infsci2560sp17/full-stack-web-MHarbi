@@ -50,7 +50,7 @@ import static org.junit.Assert.assertTrue;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @DirtiesContext
-public class LoginIT {
+public class AboutIT {
 
 	@Autowired
 	private TestRestTemplate restTemplate;
@@ -58,27 +58,17 @@ public class LoginIT {
 	@LocalServerPort
 	private int port;
 
-	// @Test
-	// public void testHome() throws Exception {
-	// 	HttpHeaders headers = new HttpHeaders();
-	// 	headers.setAccept(Arrays.asList(MediaType.TEXT_HTML));
-	// 	ResponseEntity<String> entity = this.restTemplate.exchange("/", HttpMethod.GET, new HttpEntity<Void>(headers), String.class);
-	// 	assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.FOUND);
-	// 	assertThat(entity.getHeaders().getLocation().toString()).endsWith(this.port + "/login");
-	// }
-
 	@Test
-	public void testLoginPage() throws Exception {
+	public void testAboutPage() throws Exception {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Arrays.asList(MediaType.TEXT_HTML));
-		ResponseEntity<String> entity = this.restTemplate.exchange("/login", 
+		ResponseEntity<String> entity = this.restTemplate.exchange("/about.html", 
 			HttpMethod.GET, new HttpEntity<Void>(headers), String.class);
 		assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-		assertThat(entity.getBody()).contains("_csrf");
 	}
         
         @Test
-	public void testLoginPageValid() throws Exception {
+	public void testAboutPageValid() throws Exception {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Arrays.asList(MediaType.TEXT_HTML));
 		ResponseEntity<String> entity = this.restTemplate.exchange("/about.html", 
@@ -86,21 +76,4 @@ public class LoginIT {
 		assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
                 PageHtmlValidator.validatePage(entity.getBody());
 	}
-
-	@Test
-	public void testLogin() throws Exception {		
-		ResponseEntity<String> entity = LoginHelper.login(this.restTemplate, "/login", "user", "password");
-		assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.FOUND);
-		assertThat(entity.getHeaders().getLocation().toString()).endsWith(this.port + "/");
-		assertThat(entity.getHeaders().get("Set-Cookie")).isNotNull();
-	}
-	
-	// @Test
-	// public void testCss() throws Exception {
-	// 	ResponseEntity<String> entity = this.restTemplate
-	// 			.getForEntity("/css/bootstrap.min.css", String.class);
-	// 	assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-	// 	assertThat(entity.getBody()).contains("body");
-	// }
-
 }
