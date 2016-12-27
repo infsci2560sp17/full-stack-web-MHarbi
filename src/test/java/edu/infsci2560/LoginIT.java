@@ -57,6 +57,7 @@ public class LoginIT {
 	public void testLoginPage() throws Exception {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Arrays.asList(MediaType.TEXT_HTML));
+                
 		ResponseEntity<String> entity = this.restTemplate.exchange("/login", 
 			HttpMethod.GET, new HttpEntity<>(headers), String.class);
 		assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -67,6 +68,7 @@ public class LoginIT {
 	public void testLoginPageValid() throws Exception {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Arrays.asList(MediaType.TEXT_HTML));
+                
 		ResponseEntity<String> entity = this.restTemplate.exchange("/login", 
 			HttpMethod.GET, new HttpEntity<>(headers), String.class);
 		assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -76,6 +78,7 @@ public class LoginIT {
 	@Test
 	public void testLogin() throws Exception {		
 		ResponseEntity<String> entity = LoginHelper.login(this.restTemplate, "/login", "user", "password");
+                
 		assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.FOUND);
 		assertThat(entity.getHeaders().getLocation().toString()).endsWith(this.port + "/");
 		assertThat(entity.getHeaders().get("Set-Cookie")).isNotNull();
