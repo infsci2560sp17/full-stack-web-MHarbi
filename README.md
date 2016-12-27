@@ -2,6 +2,14 @@
 
 TODO : Please provide a detailed project description.
 
+## Key Features
+
+TODO : Please list key features of your project.
+
+* Key Feature 1
+* Key Feature 2
+* Key Feature 3
+
 ## Demo
 
 TODO : Please provide a link to your web site ![](https://...)
