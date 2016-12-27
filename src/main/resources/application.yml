@@ -1,0 +1,15 @@
+spring:
+#    database:
+#        driver-class-name: org.postgresql.Driver
+#    datasource:
+#        platform: postgres
+#        url: ${JDBC_DATABASE_URL}
+#        username: ${JDBC_DATABASE_USERNAME}
+#        password: ${JDBC_DATABASE_PASSWORD}
+#    jpa:
+#        database: POSTGRESQL
+#        show-sql: true
+#        hibernate:
+#            ddl-auto: create-drop
+server:
+    port: 8080
