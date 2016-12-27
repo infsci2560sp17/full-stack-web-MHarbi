@@ -46,7 +46,6 @@ public class ApiControllerTest {
     @Test
     @WithMockUser(username="user",roles={"USER", "ADMIN"})
     public void getHello() throws Exception {
-        
         mvc.perform(MockMvcRequestBuilders.get("/api").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().string(equalTo("Greetings INFSCI2560 from Spring Boot!")));

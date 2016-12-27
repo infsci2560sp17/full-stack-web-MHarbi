@@ -33,7 +33,8 @@ public class ApiControllerIT {
     }
 
     @Test
-    public void getHello() throws Exception {                
+    public void getHello() throws Exception {    
+        // todo : log in in setup and then test method
 //        ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
 //        assertThat(response.getBody(), equalTo("Greetings INFSCI2560 from Spring Boot!"));
         assert(true);
