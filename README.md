@@ -17,7 +17,7 @@ TODO : Please list key features of your project.
 
 * Key Feature 1
 * Key Feature 2
-* Key Feature 3
+* Key Feature N
 
 ## Project Details
 
