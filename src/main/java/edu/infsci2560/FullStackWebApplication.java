@@ -43,6 +43,7 @@ public class FullStackWebApplication {
             repository.save(new Customer("Kim", "Bauer"));
             repository.save(new Customer("David", "Palmer"));
             repository.save(new Customer("Michelle", "Dessler"));
+            repository.save(new Customer("Billy", "Bean"));
 
             // fetch all customers
             log.info("[Database Demo] Customers found with findAll():");
