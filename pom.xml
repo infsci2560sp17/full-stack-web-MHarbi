@@ -146,7 +146,7 @@
                     <version>2.4.3</version>
                     <options>maxparams:3,indent,camelcase,eqeqeq,forin,immed,latedef,noarg,noempty,nonew</options>
                     <globals>require,$</globals>
-<!--                    <configFile>src/main/resources/jshint.conf.js</configFile>-->
+                    <!--                    <configFile>src/main/resources/jshint.conf.js</configFile>-->
                     <directories>
                         <directory>src/main/resources/static/js</directory>
                     </directories>
