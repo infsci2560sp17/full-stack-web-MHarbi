@@ -132,6 +132,32 @@
                 <artifactId>heroku-maven-plugin</artifactId>
                 <version>1.1.2</version>
             </plugin>
+            <plugin>
+                <groupId>com.cj.jshintmojo</groupId>
+                <artifactId>jshint-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>lint</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <version>2.4.3</version>
+                    <options>maxparams:3,indent,camelcase,eqeqeq,forin,immed,latedef,noarg,noempty,nonew</options>
+                    <globals>require,$</globals>
+<!--                    <configFile>src/main/resources/jshint.conf.js</configFile>-->
+                    <directories>
+                        <directory>src/main/resources/static/js</directory>
+                    </directories>
+                    <excludes>
+                        <exclude>src/main/resources/static/js/lib</exclude>
+                    </excludes>
+                    <reporter>jslint</reporter>
+                    <reportFile>target/jshint.xml</reportFile>
+                    <failOnError>true</failOnError>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>
