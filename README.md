@@ -4,11 +4,12 @@ TODO : Please provide a detailed project description.
 
 ## Build status
 
-[![Build Status](https://travis-ci.org/infsci2560sp17/full-stack-web-BrianKolowitz.svg?branch=master)](https://travis-ci.org/infsci2560sp17/full-stack-web-BrianKolowitz)
+TODO : Modify to match your project specific Travis Build
+[![Build Status](https://travis-ci.org/infsci2560sp17/full-stack-web.svg?branch=master)](https://travis-ci.org/infsci2560sp17/full-stack-web)
 
 ## Web Site
 
-![Brian's Project](https://infinite-brushlands-87048.herokuapp.com/)
+TODO : Please provide a link to your web site ![](https://...)
 
 ## Key Features
 
