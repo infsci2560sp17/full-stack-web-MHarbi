@@ -4,7 +4,6 @@ TODO : Please provide a detailed project description.
 
 ## Build status
 
-TODO : Modify to match your project specific Travis Build
 [![Build Status](https://travis-ci.org/infsci2560sp17/full-stack-web-MHarbi.svg?branch=master)](https://travis-ci.org/infsci2560sp17/full-stack-web-MHarbi)
 
 ## Web Site
