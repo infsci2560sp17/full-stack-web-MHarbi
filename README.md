@@ -9,7 +9,7 @@ TODO : Modify to match your project specific Travis Build
 
 ## Web Site
 
-TODO : Please provide a link to your web site ![](https://immense-garden-72100.herokuapp.com)
+[Website Name](https://immense-garden-72100.herokuapp.com)
 
 ## Key Features
 
