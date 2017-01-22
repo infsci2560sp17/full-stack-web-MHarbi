@@ -9,6 +9,7 @@ TODO : Please provide a detailed project description.
 ## Web Site 
 
 [Website Name](https://immense-garden-72100.herokuapp.com)
+[](https://www.gravatar.com/userimage/37620264/29a3514e471644dbba82aef0ac1b72c1)
 
 ## Key Features
 
