@@ -1,0 +1,127 @@
+{
+	"variables": [],
+	"info": {
+		"name": "full-stack-web-test",
+		"_postman_id": "c8c3d286-ed95-e534-d049-4929dcaa5a09",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Login Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var $ = cheerio.load(responseBody);",
+							"var _csrf = $('input[name=_csrf]').attr('value');",
+							"console.log(_csrf);",
+							"postman.setEnvironmentVariable(\"_csrf\", _csrf);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:5000/login",
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"value": "1cc4da79-126b-401c-95f7-f819effeaa91",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "user",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"url": "http://localhost:5000/login",
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"value": "{{_csrf}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "user",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Recipe's",
+			"request": {
+				"url": "http://localhost:5000/public/api/recipes",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Add Recipe",
+			"request": {
+				"url": "http://localhost:5000/public/api/recipes",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "X-CSRF-TOKEN",
+						"value": "{{_csrf}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"T25\",\n    \"workoutType\": \"CrossTrain\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

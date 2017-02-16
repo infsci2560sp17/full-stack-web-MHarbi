@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Recipe Home</title>
+    </head>
+    <body>
+        <h1><span data-th-text="${#httpServletRequest.remoteUser}" data-th-remove="tag">Username</span>'s Recipe's!</h1>
+        <div data-th-text="${msg}"></div>
+        <div>
+            <table style="border: 1px solid black">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Dish Type</th>
+                    <th>Meal Type</th>
+                    <th width="300">Ingredients</th>
+                    <th width="300">Directions</th>
+                    <th>Servings</th>
+                    <th>Prep. Time</th>
+                    <th>Cook Time</th>
+                    <th width="170">Nutrition</th>
+                </tr>                
+                <tr data-th-each="recipe : ${recipes}">
+                    <td data-th-text="${recipe.id}"></td>
+                    <td data-th-text="${recipe.title}"></td>
+                    <td data-th-text="${recipe.dishType}"></td>
+                    <td data-th-text="${recipe.mealType}"></td>
+                    <td>
+                        <ul> 
+                            <li data-th-each="ingredient : ${recipe.ingredients}" data-th-text="|${ingredient.value} ${ingredient.unit} ${ingredient.text}|"></li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ol> 
+                            <li data-th-each="direction : ${recipe.directions}" data-th-text="${direction}"></li>
+                        </ol>
+                    </td>
+                    <td data-th-text="${recipe.servings}"></td>
+                    <td data-th-text="${recipe.prepTime}"></td>
+                    <td data-th-text="${recipe.cookTime}"></td>
+                    <td>
+                        <ul>
+                            <li>Calories: 
+                                <span data-th-if="${recipe.nutrition != null}" data-th-text="${recipe.nutrition.calories}" data-th-remove="tag">0</span>kcal
+                            </li>
+                            <li>Fat: 
+                                <span data-th-if="${recipe.nutrition != null}" data-th-text="${recipe.nutrition.fat}" data-th-remove="tag">0.0</span>g
+                            </li>
+                            <li>Carbs: 
+                                <span data-th-if="${recipe.nutrition != null}" data-th-text="${recipe.nutrition.carbs}" data-th-remove="tag">0.0</span>g
+                            </li>
+                            <li>Protein: 
+                                <span data-th-if="${recipe.nutrition != null}" data-th-text="${recipe.nutrition.protein}" data-th-remove="tag">0.0</span>g
+                            </li>
+                            <li>Cholesterol: 
+                                <span data-th-if="${recipe.nutrition != null}" data-th-text="${recipe.nutrition.cholesterol}" data-th-remove="tag">0.0</span>mg
+                            </li>
+                            <li>Sodium: 
+                                <span data-th-if="${recipe.nutrition != null}" data-th-text="${recipe.nutrition.sodium}" data-th-remove="tag">0.0</span>mg
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
+        <hr />
+        <h2>Add Recipe</h2>
+        <form data-th-action="@{/recipes/add}" name="addRecipeForm" method="post">
+            Title: <input type="text" name="title" /><br />
+            Dish Type:
+            <select name="dishType">
+                <option value="None" selected="selected">None</option>
+                <option value="Bread"> Bread</option>
+                <option value="Cake"> Cake</option>
+                <option value="Candy"> Candy</option>
+                <option value="Cookie"> Cookie</option>
+                <option value="Pasta"> Pasta</option>
+                <option value="Pie"> Pie</option>
+                <option value="Pizza"> Pizza</option>
+                <option value="Salad"> Salad</option>
+                <option value="Sandwich"> Sandwich</option>
+                <option value="Sauce_Stew"> Sauce / Stew</option>
+                <option value="Smoothie"> Smoothie</option>
+            </select><br />
+            Meal Type:
+            <select name="mealType">
+                <option value="None" selected="selected">None</option>
+                <option value="Appetizer_Snack"> Appetizer &amp; Snack</option>
+                <option value="Breakfast_Brunch"> Breakfast &amp; Brunch</option>
+                <option value="Dessert"> Dessert</option>
+                <option value="Dinner"> Dinner</option>
+                <option value="Drink"> Drink</option>
+            </select><br />
+            Ingredients:<br />
+            <div>
+                <table style="border-width: 0px">
+                    <tr>
+                        <td><input type="text" name="ingredients[0].value" /></td>
+                        <td>
+                            <select name="ingredients[0].unit">
+                                <option value="None" selected="selected">None</option>
+                                <option value="Pound">Pound</option>
+                                <option value="Tablespoon">Tablespoon</option>
+                                <option value="Ounce">Ounce</option>
+                                <option value="Cup">Cup</option>
+                                <option value="Dash">Dash</option>
+                            </select>
+                        </td>
+                        <td><input type="text" name="ingredients[0].text" /></td>
+                    </tr>
+                </table>
+            </div>
+            Directions:<br />
+            <ol>
+                <li><input type="text" name="directions[0]" /></li>
+                <li><input type="text" name="directions[1]" /></li>
+                <li><input type="text" name="directions[3]" /></li>
+                <li><input type="text" name="directions[4]" /></li>
+                <li><input type="text" name="directions[5]" /></li>
+            </ol>
+            Servings: <input type="text" name="servings" /><br />
+            Prep. Time: <input type="text" name="prepTime" /><br />
+            Cook Time: <input type="text" name="cookTime" /><br />
+            Nutritions:<br />
+            <ul>
+                <li>Calories: <input type="text" name="nutrition.calories" /> kcal</li>
+                <li>Fat: <input type="text" name="nutrition.fat" /> g</li>
+                <li>Carbs: <input type="text" name="nutrition.carbs" /> g</li>
+                <li>Protein: <input type="text" name="nutrition.protein" /> g</li>
+                <li>Cholesterol: <input type="text" name="nutrition.cholesterol" /> mg</li>
+                <li>Sodium: <input type="text" name="nutrition.sodium" /> mg</li>
+            </ul>
+
+            <input type="submit" value="Add Workout"/>
+        </form>
+        
+        <hr />       
+        <form data-th-action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+        </form>
+    </body>
+</html>
