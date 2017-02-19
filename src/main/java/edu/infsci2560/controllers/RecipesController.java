@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
- * @author kolobj
+ * @author mharbi
  */
 @Controller
 public class RecipesController {
@@ -39,11 +39,20 @@ public class RecipesController {
     }
     
     @RequestMapping(value = "recipes/add", method = RequestMethod.POST, consumes="application/x-www-form-urlencoded", produces = "application/json")
-    public ModelAndView create(@ModelAttribute Recipe recipe, BindingResult result) {
+    public ModelAndView create(@ModelAttribute @Valid Recipe recipe, BindingResult result) {
         recipe.getNutrition().setRecipe(recipe);
         for (Ingredient ingredient : recipe.getIngredients()) {
             ingredient.setRecipe(recipe);
+            /*if(ingredient.getValue() == "" && ingredient.getText() == "") {
+                recipe.getIngredients().remove(ingredient);
+            }*/  
         }
+        /*for (String direction : recipe.getDirections()) {
+            if(direction == "") {
+                recipe.getDirections().remove(direction);
+            }   
+        }*/
+
         repository.save(recipe);
         ModelAndView mav = new ModelAndView("recipes", "recipes", repository.findAll());
         // mav.addObject("msg", recipe.getIngredients().toString());

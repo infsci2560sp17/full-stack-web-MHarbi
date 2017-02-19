@@ -2,142 +2,243 @@
 <html>
     <head>
         <title>Recipe Home</title>
+        <link rel="stylesheet" type="text/css" href="https://www.w3schools.com/lib/w3.css" />
+        <style>
+            .inline-input { display: inline-block; width: auto; }
+        </style>
+        <script type="text/javascript" data-th-inline="javascript" th:inline="javascript">
+        /*<![CDATA[*/
+            var ingredientsCount = 0;
+            var directionsCount = 0;
+
+            function addIngredient(event) {
+                event.preventDefault();
+                ingredientsCount++;
+                var row = '<!-- ingredient #' + (ingredientsCount+1) + ' -->' +
+                        '<div class="w3-row">' +
+                            '<div class="w3-col s2 w3-padding-small">' +
+                                '<input class="w3-input w3-border w3-round" type="text" name="ingredients[' + ingredientsCount + '].value" />' +
+                            '</div>' +
+                            '<div class="w3-col s4 w3-padding-small">' +
+                                '<select class="w3-select w3-border w3-round" name="ingredients[' + ingredientsCount + '].unit">' +
+                                    '<option value="None" selected="selected">None</option>' +
+                                    '<option value="Pound">Pound</option>' +
+                                    '<option value="Tablespoon">Tablespoon</option>' +
+                                    '<option value="Ounce">Ounce</option>' +
+                                    '<option value="Cup">Cup</option>' +
+                                    '<option value="Dash">Dash</option>' +
+                                '</select>' +
+                            '</div>' +
+                            '<div class="w3-col s6 w3-padding-small">' +
+                                '<input class="w3-input w3-border w3-round" type="text" name="ingredients[' + ingredientsCount + '].text" />' +
+                            '</div>' +
+                        '</div>';
+                document.getElementById('ingredients').insertAdjacentHTML('beforeend', row);
+
+            }
+            function addDirection(event) {
+                event.preventDefault();
+                directionsCount++;
+                var row = '<li><input class="w3-input w3-border w3-round inline-input w3-margin-top" style="width: 100%" type="text" name="directions[' + directionsCount + ']" /></li>';
+                document.getElementById('directions').insertAdjacentHTML('beforeend', row);
+            }
+        /*]]>*/
+        </script>
     </head>
-    <body>
+    <body class="w3-container">
         <h1><span data-th-text="${#httpServletRequest.remoteUser}" data-th-remove="tag">Username</span>'s Recipe's!</h1>
         <div data-th-text="${msg}"></div>
-        <div>
-            <table style="border: 1px solid black">
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Dish Type</th>
-                    <th>Meal Type</th>
-                    <th width="300">Ingredients</th>
-                    <th width="300">Directions</th>
-                    <th>Servings</th>
-                    <th>Prep. Time</th>
-                    <th>Cook Time</th>
-                    <th width="170">Nutrition</th>
-                </tr>                
-                <tr data-th-each="recipe : ${recipes}">
-                    <td data-th-text="${recipe.id}"></td>
-                    <td data-th-text="${recipe.title}"></td>
-                    <td data-th-text="${recipe.dishType}"></td>
-                    <td data-th-text="${recipe.mealType}"></td>
-                    <td>
-                        <ul> 
-                            <li data-th-each="ingredient : ${recipe.ingredients}" data-th-text="|${ingredient.value} ${ingredient.unit} ${ingredient.text}|"></li>
-                        </ul>
-                    </td>
-                    <td>
-                        <ol> 
-                            <li data-th-each="direction : ${recipe.directions}" data-th-text="${direction}"></li>
+
+        <table class="w3-table-all w3-hoverable">
+            <tr class="w3-teal">
+                <th>ID</th>
+                <th>Name</th>
+                <th>Dish Type</th>
+                <th>Meal Type</th>
+                <th width="300">Ingredients</th>
+                <th width="300">Directions</th>
+                <th>Servings</th>
+                <th>Prep. Time</th>
+                <th>Cook Time</th>
+                <th width="170">Nutrition</th>
+            </tr>                
+            <tr data-th-each="recipe : ${recipes}">
+                <td data-th-text="${recipe.id}"></td>
+                <td data-th-text="${recipe.title}"></td>
+                <td data-th-text="${recipe.dishType}"></td>
+                <td data-th-text="${recipe.mealType}"></td>
+                <td>
+                    <ul> 
+                        <li data-th-each="ingredient : ${recipe.ingredients}" data-th-text="|${ingredient.value} ${ingredient.unit} ${ingredient.text}|"></li>
+                    </ul>
+                </td>
+                <td>
+                    <ol> 
+                        <li data-th-each="direction : ${recipe.directions}" data-th-text="${direction}"></li>
+                    </ol>
+                </td>
+                <td data-th-text="${recipe.servings}"></td>
+                <td><span data-th-text="${recipe.prepTime}" data-th-remove="tag"></span> <span class="w3-tiny w3-center">(min.)</span></td>
+                <td><span data-th-text="${recipe.cookTime}" data-th-remove="tag"></span> <span class="w3-tiny w3-center">(min.)</span></td>
+                <td>
+                    <ul>
+                        <li><strong>Calories: </strong>
+                            <span data-th-if="${recipe.nutrition != null}" data-th-text="${recipe.nutrition.calories}" data-th-remove="tag">0</span>kcal
+                        </li>
+                        <li><strong>Fat: </strong>
+                            <span data-th-if="${recipe.nutrition != null}" data-th-text="${recipe.nutrition.fat}" data-th-remove="tag">0.0</span>g
+                        </li>
+                        <li><strong>Carbs: </strong>
+                            <span data-th-if="${recipe.nutrition != null}" data-th-text="${recipe.nutrition.carbs}" data-th-remove="tag">0.0</span>g
+                        </li>
+                        <li><strong>Protein: </strong>
+                            <span data-th-if="${recipe.nutrition != null}" data-th-text="${recipe.nutrition.protein}" data-th-remove="tag">0.0</span>g
+                        </li>
+                        <li><strong>Cholesterol: </strong>
+                            <span data-th-if="${recipe.nutrition != null}" data-th-text="${recipe.nutrition.cholesterol}" data-th-remove="tag">0.0</span>mg
+                        </li>
+                        <li><strong>Sodium: </strong>
+                            <span data-th-if="${recipe.nutrition != null}" data-th-text="${recipe.nutrition.sodium}" data-th-remove="tag">0.0</span>mg
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+        
+        <hr />
+        <div class="w3-row">
+            <div class="w3-half w3-card-4">
+                <div class="w3-container w3-black">
+                    <h2>Add Recipe</h2>
+                </div>
+                <form class="w3-container" data-th-action="@{/recipes/add}" name="addRecipeForm" method="post">
+                    <div class="w3-group"> 
+                        <label>Title:</label>
+                        <input class="w3-input w3-border w3-round" type="text" name="title" />
+                    </div>
+                    <div class="w3-group"> 
+                        <label>Dish Type:</label>
+                        <select class="w3-select w3-border w3-round" name="dishType">
+                            <option value="None" selected="selected">None</option>
+                            <option value="Dish"> Dish</option>
+                            <option value="Bread"> Bread</option>
+                            <option value="Cake"> Cake</option>
+                            <option value="Candy"> Candy</option>
+                            <option value="Cookie"> Cookie</option>
+                            <option value="Pasta"> Pasta</option>
+                            <option value="Pie"> Pie</option>
+                            <option value="Pizza"> Pizza</option>
+                            <option value="Salad"> Salad</option>
+                            <option value="Sandwich"> Sandwich</option>
+                            <option value="Sauce_Stew"> Sauce / Stew</option>
+                            <option value="Smoothie"> Smoothie</option>
+                        </select>
+                    </div>
+                    <div class="w3-group"> 
+                        <label>Meal Type:</label>
+                        <select class="w3-select w3-border w3-round" name="mealType">
+                            <option value="None" selected="selected">None</option>
+                            <option value="Appetizer_Snack"> Appetizer &amp; Snack</option>
+                            <option value="Breakfast_Brunch"> Breakfast &amp; Brunch</option>
+                            <option value="Dessert"> Dessert</option>
+                            <option value="Dinner"> Dinner</option>
+                            <option value="Drink"> Drink</option>
+                        </select>
+                    </div>
+                    <div class="w3-group"> 
+                        <label>Ingredients:</label>
+                        <div id="ingredients">
+                            <div class="w3-row w3-tiny w3-wide w3-center">
+                                <div class="w3-col s2 w3-padding-small">
+                                    Quantity
+                                </div>
+                                <div class="w3-col s4 w3-padding-small">
+                                    Unit
+                                </div>
+                                <div class="w3-col s6 w3-padding-small">
+                                    Text
+                                </div>
+                            </div>
+                            <!-- ingredient #1 -->
+                            <div class="w3-row">
+                                <div class="w3-col s2 w3-padding-small">
+                                    <input class="w3-input w3-border w3-round" type="text" name="ingredients[0].value" />
+                                </div>
+                                <div class="w3-col s4 w3-padding-small">
+                                    <select class="w3-select w3-border w3-round" name="ingredients[0].unit">
+                                        <option value="None" selected="selected">None</option>
+                                        <option value="Pound">Pound</option>
+                                        <option value="Tablespoon">Tablespoon</option>
+                                        <option value="Ounce">Ounce</option>
+                                        <option value="Cup">Cup</option>
+                                        <option value="Dash">Dash</option>
+                                    </select>
+                                </div>
+                                <div class="w3-col s6 w3-padding-small">
+                                    <input class="w3-input w3-border w3-round" type="text" name="ingredients[0].text" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w3-right-align w3-padding-small">
+                            <button onclick="addIngredient(event)">Add Row</button>
+                        </div>
+                    </div>
+                    <div class="w3-group"> 
+                        <label>Directions:</label>
+                        <ol id="directions">
+                            <li><input class="w3-input w3-border w3-round inline-input" style="width: 100%" type="text" name="directions[0]" /></li>
                         </ol>
-                    </td>
-                    <td data-th-text="${recipe.servings}"></td>
-                    <td data-th-text="${recipe.prepTime}"></td>
-                    <td data-th-text="${recipe.cookTime}"></td>
-                    <td>
+                        <div class="w3-right-align w3-padding-small">
+                            <button onclick="addDirection(event)">Add Row</button>
+                        </div>
+                    </div>
+                    <div class="w3-group"> 
+                        <label>Servings:</label>
+                        <input class="w3-input w3-border w3-round" type="text" name="servings" />
+                    </div>
+                    <div class="w3-group"> 
+                        <label>Prep. Time <span class="w3-tiny w3-center">(min.)</span>:</label>
+                        <input class="w3-input w3-border w3-round" type="text" name="prepTime" />
+                    </div>
+                    <div class="w3-group"> 
+                        <label>Cook Time <span class="w3-tiny w3-center">(min.)</span>:</label>
+                        <input class="w3-input w3-border w3-round" type="text" name="cookTime" />
+                    </div>
+                    <div class="w3-group"> 
+                        <label>Nutritions:</label>
                         <ul>
-                            <li>Calories: 
-                                <span data-th-if="${recipe.nutrition != null}" data-th-text="${recipe.nutrition.calories}" data-th-remove="tag">0</span>kcal
-                            </li>
-                            <li>Fat: 
-                                <span data-th-if="${recipe.nutrition != null}" data-th-text="${recipe.nutrition.fat}" data-th-remove="tag">0.0</span>g
-                            </li>
-                            <li>Carbs: 
-                                <span data-th-if="${recipe.nutrition != null}" data-th-text="${recipe.nutrition.carbs}" data-th-remove="tag">0.0</span>g
-                            </li>
-                            <li>Protein: 
-                                <span data-th-if="${recipe.nutrition != null}" data-th-text="${recipe.nutrition.protein}" data-th-remove="tag">0.0</span>g
-                            </li>
-                            <li>Cholesterol: 
-                                <span data-th-if="${recipe.nutrition != null}" data-th-text="${recipe.nutrition.cholesterol}" data-th-remove="tag">0.0</span>mg
-                            </li>
-                            <li>Sodium: 
-                                <span data-th-if="${recipe.nutrition != null}" data-th-text="${recipe.nutrition.sodium}" data-th-remove="tag">0.0</span>mg
-                            </li>
+                            <li>
+                                <label>Calories:</label><br />
+                                <input class="w3-input w3-border w3-round inline-input" type="text" name="nutrition.calories" /> <span class="w3-tiny w3-wide w3-center">KCAL</span></li>
+                            <li>
+                                <label>Fat:</label><br />
+                                <input class="w3-input w3-border w3-round inline-input" type="text" name="nutrition.fat" /> <span class="w3-tiny w3-wide w3-center">G</span></li>
+                            <li>
+                                <label>Carbs:</label><br />
+                                <input class="w3-input w3-border w3-round inline-input" type="text" name="nutrition.carbs" /> <span class="w3-tiny w3-wide w3-center">G</span></li>
+                            <li>
+                                <label>Protein:</label><br />
+                                <input class="w3-input w3-border w3-round inline-input" type="text" name="nutrition.protein" /> <span class="w3-tiny w3-wide w3-center">G</span></li>
+                            <li>
+                                <label>Cholesterol:</label><br />
+                                <input class="w3-input w3-border w3-round inline-input" type="text" name="nutrition.cholesterol" /> <span class="w3-tiny w3-wide w3-center">MG</span></li>
+                            <li>
+                                <label>Sodium:</label><br />
+                                <input class="w3-input w3-border w3-round inline-input" type="text" name="nutrition.sodium" /> <span class="w3-tiny w3-wide w3-center">MG</span></li>
                         </ul>
-                    </td>
-                </tr>
-            </table>
+                    </div>
+                    
+                    <div class="w3-group"> 
+                        <input class="w3-btn w3-blue-grey" type="submit" value="Add Recipe"/>
+                    </div>
+                </form>
+            </div>
         </div>
         
         <hr />
-        <h2>Add Recipe</h2>
-        <form data-th-action="@{/recipes/add}" name="addRecipeForm" method="post">
-            Title: <input type="text" name="title" /><br />
-            Dish Type:
-            <select name="dishType">
-                <option value="None" selected="selected">None</option>
-                <option value="Bread"> Bread</option>
-                <option value="Cake"> Cake</option>
-                <option value="Candy"> Candy</option>
-                <option value="Cookie"> Cookie</option>
-                <option value="Pasta"> Pasta</option>
-                <option value="Pie"> Pie</option>
-                <option value="Pizza"> Pizza</option>
-                <option value="Salad"> Salad</option>
-                <option value="Sandwich"> Sandwich</option>
-                <option value="Sauce_Stew"> Sauce / Stew</option>
-                <option value="Smoothie"> Smoothie</option>
-            </select><br />
-            Meal Type:
-            <select name="mealType">
-                <option value="None" selected="selected">None</option>
-                <option value="Appetizer_Snack"> Appetizer &amp; Snack</option>
-                <option value="Breakfast_Brunch"> Breakfast &amp; Brunch</option>
-                <option value="Dessert"> Dessert</option>
-                <option value="Dinner"> Dinner</option>
-                <option value="Drink"> Drink</option>
-            </select><br />
-            Ingredients:<br />
-            <div>
-                <table style="border-width: 0px">
-                    <tr>
-                        <td><input type="text" name="ingredients[0].value" /></td>
-                        <td>
-                            <select name="ingredients[0].unit">
-                                <option value="None" selected="selected">None</option>
-                                <option value="Pound">Pound</option>
-                                <option value="Tablespoon">Tablespoon</option>
-                                <option value="Ounce">Ounce</option>
-                                <option value="Cup">Cup</option>
-                                <option value="Dash">Dash</option>
-                            </select>
-                        </td>
-                        <td><input type="text" name="ingredients[0].text" /></td>
-                    </tr>
-                </table>
-            </div>
-            Directions:<br />
-            <ol>
-                <li><input type="text" name="directions[0]" /></li>
-                <li><input type="text" name="directions[1]" /></li>
-                <li><input type="text" name="directions[3]" /></li>
-                <li><input type="text" name="directions[4]" /></li>
-                <li><input type="text" name="directions[5]" /></li>
-            </ol>
-            Servings: <input type="text" name="servings" /><br />
-            Prep. Time: <input type="text" name="prepTime" /><br />
-            Cook Time: <input type="text" name="cookTime" /><br />
-            Nutritions:<br />
-            <ul>
-                <li>Calories: <input type="text" name="nutrition.calories" /> kcal</li>
-                <li>Fat: <input type="text" name="nutrition.fat" /> g</li>
-                <li>Carbs: <input type="text" name="nutrition.carbs" /> g</li>
-                <li>Protein: <input type="text" name="nutrition.protein" /> g</li>
-                <li>Cholesterol: <input type="text" name="nutrition.cholesterol" /> mg</li>
-                <li>Sodium: <input type="text" name="nutrition.sodium" /> mg</li>
-            </ul>
-
-            <input type="submit" value="Add Workout"/>
-        </form>
-        
-        <hr />       
         <form data-th-action="@{/logout}" method="post">
             <input type="submit" value="Sign Out"/>
         </form>
+        <hr />
     </body>
 </html>

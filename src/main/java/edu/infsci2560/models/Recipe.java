@@ -24,6 +24,7 @@ public class Recipe {
 
     public enum DishType {
         None,
+        Dish,
         Bread,
         Cake,
         Candy,

@@ -62,21 +62,25 @@ public class FullStackWebApplication {
         repository.save(recipe1);
 
         Recipe recipe2 = new Recipe(
-            "Maryland Crab Cakes II", 
-            DishType.Cake, 
-            MealType.Appetizer_Snack, 
+            "Salmon with Brown Sugar", 
+            DishType.Dish, 
+            MealType.Dinner, 
             4, 
-            15, 20,
+            5, 15,
             Arrays.asList(new String[] { 
-                "Preheat oven broiler.",
-                "Mix together crabmeat, bread crumbs, parsley, salt and pepper.",
-                "Beat together egg, mayonnaise, hot sauce and mustard. Combine with other ingredients and mix well. Form into patties and place on a lightly greased broiler pan or baking sheet.",
-                "Broil for 10 to 15 minutes, until lightly brown." 
+                "Melt butter in a large heavy skillet over medium heat.",
+                "Stir in brown sugar.",
+                "Place salmon fillets on top of brown sugar mixture.",
+                "Cook for 5 minutes on medium heat.",
+                "Turn salmon.",
+                "Continue cooking for 5 minutes, or until fish flakes easily with a fork." 
         }));
-        nutrition = new Nutrition(211f, 13f, 2.6f, 20.1f, 185f, 373f, recipe2);
+        nutrition = new Nutrition(561f, 29.7f, 27f, 33.6f, 130f, 189f, recipe2);
         recipe2.setNutrition(nutrition);
         ingredients = new ArrayList<Ingredient>(){{
-            add(new Ingredient("1", Unit.Pound, "cxxxxxxxxxxxd", recipe2));
+            add(new Ingredient("4", Unit.Tablespoon, "butter", recipe2));
+            add(new Ingredient("1/2", Unit.Cup, "dark brown sugar", recipe2));
+            add(new Ingredient("4", Unit.None, "salmon steaks", recipe2));
         }};
         recipe2.setIngredients(ingredients);
                              

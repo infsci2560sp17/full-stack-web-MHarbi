@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
- * @author kolobj
+ * @author mharbi
  */
 @RestController
 @RequestMapping("/public/api/recipes")
