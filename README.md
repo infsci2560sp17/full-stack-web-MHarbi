@@ -32,7 +32,7 @@
 ## Key Features
 
 * User can add and display your recipes.
-* All recipes can be retrieved by their ID through the api as a JSON format.
+* All recipes can be retrieved through the api as a JSON format.
 * A particular recipe could be retrieved by its ID through the api as a JSON format.
 
 ## Project Details
