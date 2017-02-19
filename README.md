@@ -31,11 +31,9 @@
 
 ## Key Features
 
-TODO : Please list key features of your project.
-
-* Key Feature 1
-* Key Feature 2
-* Key Feature N
+* User can add and display your recipes.
+* All recipes can be retrieve by their ID through the api as a JSON format.
+* A particular recipe could be retrieve by its ID through the api as a JSON format.
 
 ## Project Details
 
