@@ -27,6 +27,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
     - UserController
     - CommentController
 - Created/updated a MVC Page
+    - ajax
+        - profile.html
     - recipe
         - create.html
         - index.html

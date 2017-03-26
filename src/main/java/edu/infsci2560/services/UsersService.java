@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @RequestMapping("/public/api/users")
@@ -24,6 +25,14 @@ public class UsersService {
 
     @Autowired
     private UserRepository repository;
+
+    @RequestMapping(value = "/profile", method = RequestMethod.GET)
+    public ModelAndView profile() {
+
+        User user = repository.findById(1L);
+
+        return new ModelAndView("ajax/profile", "user", user);
+    }
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<Iterable<User>> list() {

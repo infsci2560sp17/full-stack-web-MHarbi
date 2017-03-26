@@ -2,14 +2,42 @@
 <html>
     <head>
         <title>AJAX Example</title>
+        <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.7.1.min.js"></script>
+        <script>
+            $(function() {  
+                $('#clickme').click(function() {
+                    $.ajax({
+                    url: '<span data-th-text="@{/public/api/users/}+${user.id}" data-th-remove="tag"></span>',
+                    dataType: 'json',
+                    success: function(data) {
+                        var items = [];
+
+                        $.each(data, function(key, val) {
+
+                            items.push('<li id="' + key + '">'+ key +': ' + val + '</li>');    
+
+                        });
+
+                        $('<ul/>', {
+                            'class': 'interest-list',
+                            html: items.join('')
+                        }).appendTo('body');
+
+                    },
+                    statusCode: {
+                        404: function() {
+                        alert('There was a problem with the server.  Try again soon!');
+                        }
+                    }
+                    });
+                });
+                });
+        </script>
     </head>
     <body>
         <h1>User Profile!</h1>
 
-        <p>Click <a data-th-href="@{/recipes}">here</a> to see your recipe's.</p>
-        <ul>
-            <li><a data-th-href="@{/login}">login</a></li>
-            <li><a data-th-href="@{/registration}">Registration</a></li>
-        </ul>
+        <a href="#" id="clickme">Get JSON Data</a>
+        
     </body>
 </html>
