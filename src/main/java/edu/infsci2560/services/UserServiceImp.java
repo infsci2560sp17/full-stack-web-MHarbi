@@ -11,6 +11,9 @@ import edu.infsci2560.models.User;
 import edu.infsci2560.models.User.Role;
 import edu.infsci2560.repositories.UserRepository;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 @Service
 public class UserServiceImp implements IUserService {
 
@@ -41,5 +44,12 @@ public class UserServiceImp implements IUserService {
         user.setRoles(roles);
 		userRepository.save(user);
 	}
+
+	@Override
+	public String getCurrentUsername() {
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		return auth.getName(); //get logged in username
+	}	
 
 }

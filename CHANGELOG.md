@@ -5,9 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ## [Unreleased]
 ### Added
-- TBD.
+- Fix an error in adding comments.
 
-## [1.4] - 2017-03-25
+## [v1.4] - 2017-03-25
 ### Added
 - Created Entities
     - User

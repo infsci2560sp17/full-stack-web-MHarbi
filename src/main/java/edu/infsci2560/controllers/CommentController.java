@@ -3,6 +3,7 @@ package edu.infsci2560.controllers;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -20,6 +21,8 @@ import edu.infsci2560.repositories.RecipeRepository;
 
 import edu.infsci2560.models.Comment;
 import edu.infsci2560.models.Recipe;
+import edu.infsci2560.models.User;
+import edu.infsci2560.services.UserServiceImp;
 
 @Controller
 @RequestMapping("/")
@@ -29,8 +32,10 @@ public class CommentController {
     private CommentRepository repository;
 	@Autowired
     private RecipeRepository recipeRepository;
+	@Autowired
+	private UserServiceImp userService;
 
-	@RequestMapping(value = "comments/delete/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/comments/delete/{id}", method = RequestMethod.DELETE)
 	public ModelAndView delete(@PathVariable("id") Long id) {
 		
 		Comment com = repository.findById(id);
@@ -39,14 +44,17 @@ public class CommentController {
 		return new ModelAndView("redirect:/recipes/view/" + recipe_id);
 	}
 
-	@RequestMapping(value = "comments/add/{id}", method = RequestMethod.POST, consumes="application/x-www-form-urlencoded", produces = "application/json")
+	@RequestMapping(value = "/comments/add/{id}", method = RequestMethod.POST)
     public ModelAndView create(@PathVariable("id") Long id, @Valid Comment comment, BindingResult result) {
 
 		Recipe recipe = recipeRepository.findById(id);
+		User user = userService.findUserByEmail(userService.getCurrentUsername());
 		comment.setRecipe(recipe);
+		comment.setUser(user);
+		comment.setCreated(LocalDateTime.now());
 
         repository.save(comment);
-        return new ModelAndView("redirect:/recipes/view/" + recipe.getId());
+        return new ModelAndView("redirect:/recipes/view/" + id);
     }
 
 }

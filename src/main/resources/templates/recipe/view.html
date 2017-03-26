@@ -6,6 +6,21 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
         <style>
             .inline-input { display: inline-block; width: auto; }
+            /* Style the container with a rounded border, grey background and some padding and margin */
+            .container { 
+                border: 2px solid #ccc; background-color: #eee; border-radius: 5px; padding: 16px; margin: 16px 0; 
+            }
+
+            /* Clear floats after containers */
+            .container::after { content: ""; clear: both; display: table; }
+
+            /* Increase the font-size of a span element */
+            .container span { font-size: 20px; margin-right: 15px; }
+
+            /* Add media queries for responsiveness. This will center both the text and the image inside the container */
+            @media (max-width: 500px) {
+                .container { text-align: center; }
+            }
         </style>
     </head>
     <body class="w3-container">
@@ -84,24 +99,33 @@
         </table>
         <hr />
 
-        <form autocomplete="off" data-th-action="@{/comments/add/} + ${recipe.id}" data-th-object="${comment}" data-th-method="post" class="w3-container" role="form">
+        <form autocomplete="off" data-th-action="@{/comments/add/} + ${recipe.id}" data-th-object="${comment}" method="post" class="w3-container" role="form">
+            <input type="hidden" data-th-field="*{id}" />
             <label>Comment:</label>
-            <textarea class="w3-input w3-border" style="resize:none" data-th-field="*{comment}"></textarea>
+            <textarea class="w3-input w3-border" style="resize:none" data-th-field="*{text}"></textarea>
             <input type="checkbox" data-th-field="*{recommended}" value="1" class="w3-check" />
             <label>I recommend thie recipe.</label>
             <p>
-                <button type="submit" class="w3-btn w3-padding w3-teal" style="width:120px">Send &nbsp; ❯</button>
+                <input class="w3-btn w3-btn w3-padding w3-teal" type="submit" value="Send &nbsp; ❯" style="width:120px"/>
             </p>
         </form>
         <hr />
 
-        <table class="w3-table-all w3-hoverable">
-            <tr data-th-each="comment : ${recipe.comments}">
-                <td data-th-text="${comment.comment}"></td>
-            </tr>
-        </table>
+        <h2>Comments</h2>
+        <div>
+            <div class="container" data-th-each="comment : ${recipe.comments}">
+                <p><span data-th-text="|${comment.user.firstName} ${comment.user.lastName}">Chris Fox.</span></p>
+                <p data-th-text="${comment.text}">John Doe saved us from a web disaster.</p>
+                <p>
+                    <span data-th-switch="${comment.recommended}" data-th-remove="tag">
+                        <span data-th-case="1" data-th-remove="tag"><i class="material-icons">check</i> Recommended. | </span>
+                        <span data-th-case="*" data-th-remove="tag"></span>
+                    </span>
+                    <span data-th-text="${comment.created}" data-th-remove="tag"></span>
+                </p>
+            </div>
+        </div>
 
-        
         <hr />
         <form data-th-action="@{/logout}" method="post">
             <input type="submit" value="Sign Out"/>
