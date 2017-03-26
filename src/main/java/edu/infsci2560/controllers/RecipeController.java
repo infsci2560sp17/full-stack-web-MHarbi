@@ -45,6 +45,13 @@ public class RecipeController {
 
         return mav;
     }
+
+    @RequestMapping(value = "recipes/add", method = RequestMethod.GET)
+    public ModelAndView create() {
+
+        ModelAndView mav = new ModelAndView("recipe/create");
+        return mav;
+    }
     
     @RequestMapping(value = "recipes/add", method = RequestMethod.POST, consumes="application/x-www-form-urlencoded", produces = "application/json")
     public ModelAndView create(@ModelAttribute @Valid Recipe recipe, BindingResult result) {
@@ -63,7 +70,7 @@ public class RecipeController {
         }*/
 
         repository.save(recipe);
-        ModelAndView mav = new ModelAndView("recipes", "recipes", repository.findAll());
+        ModelAndView mav = new ModelAndView("recipe/index", "recipes", repository.findAll());
         // mav.addObject("msg", recipe.getIngredients().toString());
         return mav;
     }
