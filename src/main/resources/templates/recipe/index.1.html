@@ -3,7 +3,16 @@
     <head>
         <title>Recipe Home</title>
         <link rel="stylesheet" type="text/css" href="https://www.w3schools.com/lib/w3.css" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
         <style>
+            .button {
+                background-color: Transparent;
+                background-repeat:no-repeat;
+                border: none;
+                cursor:pointer;
+                overflow: hidden;
+                outline:none;
+            }
             .inline-input { display: inline-block; width: auto; }
         </style>
         <script type="text/javascript" data-th-inline="javascript" th:inline="javascript">
@@ -46,7 +55,7 @@
         </script>
     </head>
     <body class="w3-container">
-        <h1><span data-th-text="${#httpServletRequest.remoteUser}" data-th-remove="tag">Username</span>'s Recipe's!</h1>
+        <h1><span data-th-text="${#httpServletRequest.remoteUser}" data-th-remove="tag">Username</span>'s Recipe!</h1>
         <div data-th-text="${msg}"></div>
 
         <table class="w3-table-all w3-hoverable">

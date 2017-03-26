@@ -1,7 +1,7 @@
 package edu.infsci2560.services;
 
-import edu.infsci2560.models.Recipe;
-import edu.infsci2560.repositories.RecipeRepository;
+import edu.infsci2560.models.Nutrition;
+import edu.infsci2560.repositories.NutritionRepository;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,27 +19,27 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @RestController
-@RequestMapping("/public/api/recipes")
-public class RecipesService {
+@RequestMapping("/public/api/nutritions")
+public class NutritionsService {
 
     @Autowired
-    private RecipeRepository repository;
+    private NutritionRepository repository;
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity<Iterable<Recipe>> list() {
+    public ResponseEntity<Iterable<Nutrition>> list() {
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(repository.findAll(), headers, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity<Recipe> list(@PathVariable("id") Long id) {
+    public ResponseEntity<Nutrition> list(@PathVariable("id") Long id) {
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(repository.findOne(id), headers, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes="application/json", produces = "application/json")
-    public ResponseEntity<Recipe> create(@RequestBody Recipe recipe) {
+    public ResponseEntity<Nutrition> create(@RequestBody Nutrition nutrition) {
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(repository.save(recipe), headers, HttpStatus.OK);
+        return new ResponseEntity<>(repository.save(nutrition), headers, HttpStatus.OK);
     }
 }

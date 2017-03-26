@@ -4,34 +4,65 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    private DataSource dataSource;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
         http
-            .authorizeRequests()
-                .antMatchers("/", "/home", "/about.html", "/public/**"/*, "/recipes/**"*/).permitAll()
+			.authorizeRequests()
+				.antMatchers("/", "/home", "about.html", "/public/**", "/login", "/registration").permitAll()
+				.antMatchers("/users/**").permitAll()
+				.antMatchers("/admin/**").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
                 .and()
-            .formLogin()
-                .loginPage("/login")
+            .csrf().disable().formLogin()
+				.loginPage("/login")
+                .failureUrl("/login?error=true")
+				.defaultSuccessUrl("/hello")
+				.usernameParameter("email")
+				.passwordParameter("password")
+				.and()
+            .logout()
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+				.logoutSuccessUrl("/")
                 .permitAll()
                 .and()
-            .logout()
-                .permitAll();
+            .exceptionHandling()
+				.accessDeniedPage("/access-denied");
     }
+
+    @Override
+	public void configure(WebSecurity web) throws Exception {
+        
+	    web
+	       .ignoring()
+	       .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
+	}
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+
         auth
-            .inMemoryAuthentication()
-                .withUser("user").password("password").roles("USER");
-        auth
-            .inMemoryAuthentication()
-                .withUser("u").password("p").roles("USER");
+			.jdbcAuthentication()
+				.usersByUsernameQuery("select email, password, active from users where email=?")
+				.authoritiesByUsernameQuery("select u.email, ur.roles from users u inner join user_roles ur on(u.id=ur.user_id) where u.email=?")
+				.dataSource(dataSource)
+				.passwordEncoder(bCryptPasswordEncoder);
     }
 }

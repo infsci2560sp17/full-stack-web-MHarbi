@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>User Home</title>
+        <link rel="stylesheet" type="text/css" href="https://www.w3schools.com/lib/w3.css" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+        <style>
+            .button {
+                background-color: Transparent;
+                background-repeat:no-repeat;
+                border: none;
+                cursor:pointer;
+                overflow: hidden;
+                outline:none;
+            }
+            .inline-input { display: inline-block; width: auto; }
+        </style>
+    </head>
+    <body class="w3-container">
+        <h1>Users</h1>
+
+        <table class="w3-table-all w3-hoverable">
+            <tr class="w3-teal">
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Gender</th>
+                <th>Email</th>
+                <th>Active</th>
+                <th>Role(s)</th>
+                <th>...</th>
+            </tr>                
+            <tr data-th-each="user : ${users}">
+                <td style="vertical-align: middle;" data-th-text="${user.id}"></td>
+                <td style="vertical-align: middle;" data-th-text="${user.firstName}"></td>
+                <td style="vertical-align: middle;" data-th-text="${user.lastName}"></td>
+                <td style="vertical-align: middle;" data-th-text="${user.gender}"></td>
+                <td style="vertical-align: middle;" data-th-text="${user.email}"></td>
+                <td style="vertical-align: middle;" data-th-text="${user.active}"></td>
+                <td style="vertical-align: middle;">
+                    <ul> 
+                        <li data-th-each="role : ${user.roles}" data-th-text="${role}"></li>
+                    </ul>
+                </td>
+                <td style="vertical-align: middle;">
+                    <a data-th-href="@{|/users/view/${user.id}|}"><i class="material-icons">zoom_in</i></a>
+                    <a data-th-href="@{|/users/update/${user.id}|}"><i class="material-icons">edit</i></a>
+                    <form data-th-object="${user}" data-th-action="@{/users/delete/} + ${user.id}" data-th-method="delete" class="inline-input" onsubmit="return confirm('This user will be permanently deleted and cannot be recovered. Are you sure?')">
+                        <button class="button" type="submit" value="Submit"><i class="material-icons">delete</i></button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+
+        <hr />
+        <form data-th-action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+        </form>
+        <hr />
+    </body>
+</html>

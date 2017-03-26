@@ -13,10 +13,6 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.util.List;
 
-/**
- *
- * @author mharbi
- */
 @Entity
 public class Recipe {
 
@@ -48,7 +44,7 @@ public class Recipe {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
     protected String title;
     protected DishType dishType;
@@ -64,6 +60,9 @@ public class Recipe {
     
     @OneToMany(targetEntity=Ingredient.class, mappedBy="recipe", cascade=CascadeType.ALL)
     protected List<Ingredient> ingredients;
+
+    @OneToMany(targetEntity=Comment.class, mappedBy="recipe", cascade=CascadeType.ALL)
+    protected List<Comment> comments;
 
 
     public Recipe() {
@@ -212,6 +211,14 @@ public class Recipe {
 
     public void setNutrition(Nutrition nutrition) {
         this.nutrition = nutrition;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
 }

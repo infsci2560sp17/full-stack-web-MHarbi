@@ -8,10 +8,6 @@ import javax.persistence.ManyToOne;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-/**
- *
- * @author mharbi
- */
 @Entity
 public class Ingredient {
 
@@ -25,7 +21,7 @@ public class Ingredient {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
     protected String value;
     protected Unit unit;

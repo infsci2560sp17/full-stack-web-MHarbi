@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Recipe Home</title>
+        <link rel="stylesheet" type="text/css" href="https://www.w3schools.com/lib/w3.css" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+        <style>
+            .button {
+                background-color: Transparent;
+                background-repeat:no-repeat;
+                border: none;
+                cursor:pointer;
+                overflow: hidden;
+                outline:none;
+            }
+            .inline-input { display: inline-block; width: auto; }
+        </style>
+    </head>
+    <body class="w3-container">
+        <h1>Recipes!</h1>
+
+        <table class="w3-table-all w3-hoverable">
+            <tr class="w3-teal">
+                <th>ID</th>
+                <th>Name</th>
+                <th>Dish Type</th>
+                <th>Meal Type</th>
+                <th width="300">Ingredients</th>
+                <th width="300">Directions</th>
+                <th>Servings</th>
+                <th>Prep. Time</th>
+                <th>Cook Time</th>
+                <th width="170">Nutrition</th>
+                <th>...</th>
+            </tr>                
+            <tr data-th-each="recipe : ${recipes}">
+                <td data-th-text="${recipe.id}"></td>
+                <td data-th-text="${recipe.title}"></td>
+                <td data-th-text="${recipe.dishType}"></td>
+                <td data-th-text="${recipe.mealType}"></td>
+                <td>
+                    <ul> 
+                        <li data-th-each="ingredient : ${recipe.ingredients}" data-th-text="|${ingredient.value} ${ingredient.unit} ${ingredient.text}|"></li>
+                    </ul>
+                </td>
+                <td>
+                    <ol> 
+                        <li data-th-each="direction : ${recipe.directions}" data-th-text="${direction}"></li>
+                    </ol>
+                </td>
+                <td data-th-text="${recipe.servings}"></td>
+                <td><span data-th-text="${recipe.prepTime}" data-th-remove="tag"></span> <span class="w3-tiny w3-center">(min.)</span></td>
+                <td><span data-th-text="${recipe.cookTime}" data-th-remove="tag"></span> <span class="w3-tiny w3-center">(min.)</span></td>
+                <td>
+                    <ul>
+                        <li><strong>Calories: </strong>
+                            <span data-th-if="${recipe.nutrition != null}" data-th-text="${recipe.nutrition.calories}" data-th-remove="tag">0</span>kcal
+                        </li>
+                        <li><strong>Fat: </strong>
+                            <span data-th-if="${recipe.nutrition != null}" data-th-text="${recipe.nutrition.fat}" data-th-remove="tag">0.0</span>g
+                        </li>
+                        <li><strong>Carbs: </strong>
+                            <span data-th-if="${recipe.nutrition != null}" data-th-text="${recipe.nutrition.carbs}" data-th-remove="tag">0.0</span>g
+                        </li>
+                        <li><strong>Protein: </strong>
+                            <span data-th-if="${recipe.nutrition != null}" data-th-text="${recipe.nutrition.protein}" data-th-remove="tag">0.0</span>g
+                        </li>
+                        <li><strong>Cholesterol: </strong>
+                            <span data-th-if="${recipe.nutrition != null}" data-th-text="${recipe.nutrition.cholesterol}" data-th-remove="tag">0.0</span>mg
+                        </li>
+                        <li><strong>Sodium: </strong>
+                            <span data-th-if="${recipe.nutrition != null}" data-th-text="${recipe.nutrition.sodium}" data-th-remove="tag">0.0</span>mg
+                        </li>
+                    </ul>
+                </td>
+                <td style="vertical-align: middle;">
+                    <a data-th-href="@{|/recipes/view/${recipe.id}|}"><i class="material-icons">zoom_in</i></a>
+                    <!--<a data-th-href="@{|/recipes/update/${recipe.id}|}"><i class="material-icons">edit</i></a>-->
+                    <!--<form data-th-object="${recipe}" data-th-action="@{/recipes/delete/} + ${recipe.id}" data-th-method="delete" class="inline-input" onsubmit="return confirm('This recipe will be permanently deleted and cannot be recovered. Are you sure?')">
+                        <button class="button" type="submit" value="Submit"><i class="material-icons">delete</i></button>
+                    </form>-->
+                </td>
+            </tr>
+        </table>
+        
+        <hr />
+        <form data-th-action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+        </form>
+        <hr />
+    </body>
+</html>

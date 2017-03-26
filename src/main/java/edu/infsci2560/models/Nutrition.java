@@ -8,14 +8,10 @@ import javax.persistence.OneToOne;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-/**
- *
- * @author mharbi
- */
 @Entity
 public class Nutrition {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
     protected float calories;    // kcal
     protected float fat;         // g

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Recipe Details</title>
+        <link rel="stylesheet" type="text/css" href="https://www.w3schools.com/lib/w3.css" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+        <style>
+            .inline-input { display: inline-block; width: auto; }
+        </style>
+    </head>
+    <body class="w3-container">
+        <h1><span data-th-text="${recipe.title}" data-th-remove="tag">Title</span></h1>
+        
+        <table class="w3-table-all w3-hoverable">
+            <tr>
+                <th class="w3-teal" style="width: 25%">ID</th>
+                <td data-th-text="${recipe.id}"></td>
+            </tr>
+            <tr>
+                <th class="w3-teal">Name</th>
+                <td data-th-text="${recipe.title}"></td>
+            </tr>
+            <tr>
+                <th class="w3-teal">Dish Type</th>
+                <td data-th-text="${recipe.dishType}"></td>
+            </tr>
+            <tr>
+                <th class="w3-teal">Meal Type</th>
+                <td data-th-text="${recipe.mealType}"></td>
+            </tr>
+            <tr>
+                <th class="w3-teal" width="300">Ingredients</th>
+                <td>
+                    <ul> 
+                        <li data-th-each="ingredient : ${recipe.ingredients}" data-th-text="|${ingredient.value} ${ingredient.unit} ${ingredient.text}|"></li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <th class="w3-teal" width="300">Directions</th>
+                <td>
+                    <ol> 
+                        <li data-th-each="direction : ${recipe.directions}" data-th-text="${direction}"></li>
+                    </ol>
+                </td>
+            </tr>
+            <tr>
+                <th class="w3-teal">Servings</th>
+                <td data-th-text="${recipe.servings}"></td>
+            </tr>
+            <tr>
+                <th class="w3-teal">Prep. Time</th>
+                <td><span data-th-text="${recipe.prepTime}" data-th-remove="tag"></span> <span class="w3-tiny w3-center">(min.)</span></td>
+            </tr>
+            <tr>
+                <th class="w3-teal">Cook Time</th>
+                <td><span data-th-text="${recipe.cookTime}" data-th-remove="tag"></span> <span class="w3-tiny w3-center">(min.)</span></td>
+            </tr>
+            <tr>
+                <th class="w3-teal" width="170">Nutrition</th>
+                <td>
+                    <ul>
+                        <li><strong>Calories: </strong>
+                            <span data-th-if="${recipe.nutrition != null}" data-th-text="${recipe.nutrition.calories}" data-th-remove="tag">0</span>kcal
+                        </li>
+                        <li><strong>Fat: </strong>
+                            <span data-th-if="${recipe.nutrition != null}" data-th-text="${recipe.nutrition.fat}" data-th-remove="tag">0.0</span>g
+                        </li>
+                        <li><strong>Carbs: </strong>
+                            <span data-th-if="${recipe.nutrition != null}" data-th-text="${recipe.nutrition.carbs}" data-th-remove="tag">0.0</span>g
+                        </li>
+                        <li><strong>Protein: </strong>
+                            <span data-th-if="${recipe.nutrition != null}" data-th-text="${recipe.nutrition.protein}" data-th-remove="tag">0.0</span>g
+                        </li>
+                        <li><strong>Cholesterol: </strong>
+                            <span data-th-if="${recipe.nutrition != null}" data-th-text="${recipe.nutrition.cholesterol}" data-th-remove="tag">0.0</span>mg
+                        </li>
+                        <li><strong>Sodium: </strong>
+                            <span data-th-if="${recipe.nutrition != null}" data-th-text="${recipe.nutrition.sodium}" data-th-remove="tag">0.0</span>mg
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+        <hr />
+
+        <form autocomplete="off" data-th-action="@{/comments/add/} + ${recipe.id}" data-th-object="${comment}" data-th-method="post" class="w3-container" role="form">
+            <label>Comment:</label>
+            <textarea class="w3-input w3-border" style="resize:none" data-th-field="*{comment}"></textarea>
+            <input type="checkbox" data-th-field="*{recommended}" value="1" class="w3-check" />
+            <label>I recommend thie recipe.</label>
+            <p>
+                <button type="submit" class="w3-btn w3-padding w3-teal" style="width:120px">Send &nbsp; ❯</button>
+            </p>
+        </form>
+        <hr />
+
+        <table class="w3-table-all w3-hoverable">
+            <tr data-th-each="comment : ${recipe.comments}">
+                <td data-th-text="${comment.comment}"></td>
+            </tr>
+        </table>
+
+        
+        <hr />
+        <form data-th-action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+        </form>
+        <hr />
+    </body>
+</html>

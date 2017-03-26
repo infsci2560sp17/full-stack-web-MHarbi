@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>User Profile</title>
+        <link rel="stylesheet" type="text/css" href="https://www.w3schools.com/lib/w3.css" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+        <style>
+            .inline-input { display: inline-block; width: auto; }
+        </style>
+    </head>
+    <body class="w3-container">
+        <h1><span data-th-text="${user.lastName}" data-th-remove="tag">Last Name</span>'s Profile</h1>
+
+        <table class="w3-table-all w3-hoverable">
+            <tr>
+                <th class="w3-teal" style="width: 25%">ID</th>
+                <td data-th-text="${user.id}"></td>
+            </tr>
+            <tr>
+                <th class="w3-teal">First Name</th>
+                <td data-th-text="${user.firstName}"></td>
+            </tr>
+            <tr>
+                <th class="w3-teal">Last Name</th>
+                <td data-th-text="${user.lastName}"></td>
+            </tr>
+            <tr>
+                <th class="w3-teal">Gender</th>
+                <td data-th-text="${user.gender}"></td>
+            </tr>
+            <tr>
+                <th class="w3-teal">Email</th>
+                <td data-th-text="${user.email}"></td>
+            </tr>
+            <tr>
+                <th class="w3-teal">Password</th>
+                <td data-th-text="${user.password}"></td>
+            </tr>
+            <tr>
+                <th class="w3-teal">Active</th>
+                <td data-th-text="${user.active}"></td>
+            </tr>
+            <tr>
+                <th class="w3-teal">Role(s)</th>
+                <td>
+                    <ul> 
+                        <li data-th-each="role : ${user.roles}" data-th-text="${role}"></li>
+                    </ul>
+                </td>
+            </tr>                
+            <tr>
+                <td></td>
+                <td>
+                    <a data-th-href="@{|/users/update/${user.id}|}" class="w3-btn w3-blue"><i class="material-icons">edit</i> Update</a>
+                    <form data-th-object="${user}" data-th-action="@{/users/delete/} + ${user.id}" data-th-method="delete" class="inline-input" onsubmit="return confirm('This user will be permanently deleted and cannot be recovered. Are you sure?')">
+                        <button class="button w3-btn w3-red" type="submit" value="Submit"><i class="material-icons">delete</i> Delete</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+        
+        <hr />
+        <form data-th-action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+        </form>
+        <hr />
+    </body>
+</html>

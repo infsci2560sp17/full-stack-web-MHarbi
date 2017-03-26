@@ -1,14 +1,18 @@
 package edu.infsci2560;
 
-import edu.infsci2560.models.Customer;
 import edu.infsci2560.models.Recipe;
 import edu.infsci2560.models.Recipe.DishType;
 import edu.infsci2560.models.Recipe.MealType;
 import edu.infsci2560.models.Ingredient;
 import edu.infsci2560.models.Ingredient.Unit;
 import edu.infsci2560.models.Nutrition;
-import edu.infsci2560.repositories.CustomerRepository;
+import edu.infsci2560.models.User;
+import edu.infsci2560.models.User.Gender;
+import edu.infsci2560.models.User.Role;
 import edu.infsci2560.repositories.RecipeRepository;
+import edu.infsci2560.repositories.UserRepository;
+
+import edu.infsci2560.services.UserServiceImp;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +22,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +34,10 @@ public class FullStackWebApplication {
     private static final Logger log = LoggerFactory.getLogger(FullStackWebApplication.class);
 
     public static void main(String[] args) {
+
         ApplicationContext ctx = SpringApplication.run(FullStackWebApplication.class, args);
         
-        RecipeRepository repository = ctx.getBean(RecipeRepository.class);
+        RecipeRepository recipeRepository = ctx.getBean(RecipeRepository.class);
 
         Recipe recipe1 = new Recipe( 
             "Maryland Crab Cakes II", 
@@ -59,7 +65,7 @@ public class FullStackWebApplication {
         }};
         recipe1.setIngredients(ingredients);
                              
-        repository.save(recipe1);
+        recipeRepository.save(recipe1);
 
         Recipe recipe2 = new Recipe(
             "Salmon with Brown Sugar", 
@@ -84,8 +90,22 @@ public class FullStackWebApplication {
         }};
         recipe2.setIngredients(ingredients);
                              
-        repository.save(recipe2);
-        log.info("[Database Demo] ------------------------------------------------------------------------");
+        recipeRepository.save(recipe2);
+
+        UserServiceImp userService = ctx.getBean(UserServiceImp.class);
+
+        User user1 = new User("Mohammed", "Alharbi", Gender.Male, "user", "password");
+        userService.saveUser(user1, new ArrayList<Role>(){{
+            add(Role.ADMIN);
+            add(Role.USER);
+        }});
+        User user2 = new User("Mohammed", "Alharbi", Gender.Male, "u", "p");
+        userService.saveUser(user2, new ArrayList<Role>(){{
+            add(Role.ADMIN);
+            add(Role.USER);
+        }});
+
+        log.info("\n[Database Demo] ------------------------------------------------------------------------");
     }
 
 //    @Bean
