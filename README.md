@@ -34,6 +34,8 @@
 * User can add and display your recipes.
 * All recipes can be retrieved through the api as a JSON format.
 * A particular recipe could be retrieved by its ID through the api as a JSON format.
+* Administrator can manage Users.
+* Users can add comments.
 
 ## Project Details
 

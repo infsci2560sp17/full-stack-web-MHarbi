@@ -7,6 +7,42 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 ### Added
 - TBD.
 
+## [1.4] - 2017-03-25
+### Added
+- Created Entities
+    - User
+    - Ingredient
+    - Nutrition
+    - Comment
+- Created a Repository
+    - UserRepository
+    - IngredientRepository
+    - NutritionRepository
+    - CommentRepository
+- Created a RESTful web service and return JSON
+    - UsersService
+    - IngredientsService
+    - NutritionsService
+- Created a MVC Controller
+    - UserController
+    - CommentController
+- Created/updated a MVC Page
+    - recipe
+        - create.html
+        - index.html
+        - update.html
+        - view.html
+    - user
+        - index.html
+        - update.html
+        - view.html
+    - hello.html
+    - home.html
+    - login.html
+    - registration.html
+- Included in README.md
+    - Key Features
+
 ## [v1.3] - 2017-02-18
 ### Added
 - Created Entities/sub-Entities
@@ -40,6 +76,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 - Deployed to Heroku.
 
 [Unreleased]: https://github.com/infsci2560sp17/full-stack-web-MHarbi/compare/v1.2...HEAD
+[v1.4]: https://github.com/infsci2560sp17/full-stack-web-MHarbi/compare/v1.3...v1.4
 [v1.3]: https://github.com/infsci2560sp17/full-stack-web-MHarbi/compare/v1.2...v1.3
 [v1.2]: https://github.com/infsci2560sp17/full-stack-web-MHarbi/compare/v1.1...v1.2
 [v1.1]: https://github.com/infsci2560sp17/full-stack-web-MHarbi/compare/...v1.1
