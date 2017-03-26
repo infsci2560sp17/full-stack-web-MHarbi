@@ -41,11 +41,11 @@
 
 ### Landing Page
 
-TODO : please provide a description of your landing page inluding a screen shot ![](https://.../image.JPG)
+TODO : please provide a description of your landing page inluding a screen shot ![](Screenshots/S7.png)
 
 ### User Input Form
 
-TODO : please provide a description of at least 1 user input form including a screen shot ![](https://.../image.jpg)
+TODO : please provide a description of at least 1 user input form including a screen shot ![](Screenshots/S9.png)
 
 ## API
 
