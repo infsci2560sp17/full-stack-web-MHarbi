@@ -7,7 +7,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 ### Added
 - TBD.
 
-## [1.4] - 2017-03-25
+## [v1.4] - 2017-03-25
 ### Added
 - Created Entities
     - User
