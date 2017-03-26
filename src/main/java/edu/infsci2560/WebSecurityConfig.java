@@ -26,15 +26,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
 			.authorizeRequests()
-				.antMatchers("/", "/home", "about.html", "/public/**", "/login", "/registration").permitAll()
+				.antMatchers("/", "/home", "/about.html", "/public/**", "/login", "/registration").permitAll()
 				.antMatchers("/admin/**").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
                 .and()
-            .csrf().disable().formLogin()
+            .formLogin()
 				.loginPage("/login")
                 .failureUrl("/login?error=true")
-				.defaultSuccessUrl("/hello")
-				.usernameParameter("email")
+				.defaultSuccessUrl("/")
+				.usernameParameter("username")
 				.passwordParameter("password")
 				.and()
             .logout()
@@ -63,5 +63,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.authoritiesByUsernameQuery("select u.email, ur.roles from users u inner join user_roles ur on(u.id=ur.user_id) where u.email=?")
 				.dataSource(dataSource)
 				.passwordEncoder(bCryptPasswordEncoder);
+				
+		auth.inMemoryAuthentication().withUser("user").password("password").roles("USER");
+		//auth.inMemoryAuthentication().withUser("user").password("$2a$10$3/VlLaILAG45pU/SV3KDoe1/PFRLiOYzrumwUDdZL.YNpUGZhMKie").roles("USER");
     }
 }
