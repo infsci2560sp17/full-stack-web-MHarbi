@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>User Update</title>
-		<link rel="stylesheet" type="text/css" href="https://www.w3schools.com/lib/w3.css" />
+		<title>Eat Healthy | User Update</title>
+		<style data-th-replace="fragments/head::head"></style>
 	</head>
-	<body class="w3-container">
+	<body>
+		<div data-th-replace="fragments/header::header"></div>
+        <!-- !PAGE CONTENT! -->
+		<div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
 
 		<div class="w3-row">
             <div class="w3-half w3-card-4">
                 <div class="w3-container w3-black">
-                    <h2>Update User</h2>
+                    <h3>Update User</h3>
                 </div>
 				
 				<form autocomplete="off" data-th-action="@{/users/update/} + ${user.id}" data-th-object="${user}" data-th-method="put" class="w3-container" role="form">
@@ -57,6 +60,11 @@
                 </form>
             </div>
         </div>
+
+		 <!-- End page content -->
+        </div>
+        <hr />
+        <div data-th-replace="fragments/footer::foot"></div>
 
 	</body>
 </html>

@@ -1,34 +1,120 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Spring Security</title>
-		<link rel="stylesheet" type="text/css" data-th-href="@{/css/login.css}" />
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<title>Eat Healthy | Login</title>
+		<style data-th-replace="fragments/head::head"></style>
+		<style>
+			/* Bordered form */
+			form {
+				border: 3px solid #f1f1f1;
+				width: 50%;
+				margin: auto;
+			}
+
+			/* Full-width inputs */
+			input[type=text], input[type=password] {
+				width: 100%;
+				padding: 12px 20px;
+				margin: 8px 0;
+				display: inline-block;
+				border: 1px solid #ccc;
+				box-sizing: border-box;
+			}
+
+			/* Set a style for all buttons */
+			button {
+				/*background-color: #4CAF50;*/
+				color: white;
+				padding: 14px 20px;
+				margin: 8px 0;
+				border: none;
+				cursor: pointer;
+				width: 100%;
+			}
+
+			/* Add a hover effect for buttons */
+			button:hover {
+				opacity: 0.8;
+			}
+
+			/* Extra style for the cancel button (red) */
+			.cancelbtn {
+				width: auto;
+				padding: 10px 18px;
+				background-color: #f44336;
+			}
+
+			/* Center the avatar image inside this container */
+			.imgcontainer {
+				text-align: center;
+				margin: 24px 0 12px 0;
+			}
+
+			/* Avatar image */
+			img.avatar {
+				width: 20%;
+				border-radius: 50%;
+			}
+
+			/* Add padding to containers */
+			.container {
+				padding: 16px;
+			}
+
+			/* The "Forgot password" text */
+			span.psw {
+				float: right;
+				padding-top: 16px;
+			}
+
+			/* Change styles for span and cancel button on extra small screens */
+			@media screen and (max-width: 300px) {
+				span.psw {
+					display: block;
+					float: none;
+				}
+				.cancelbtn {
+					width: 100%;
+				}
+			}
+		</style>
 	</head>
 
 	<body>
-		<form data-th-action="@{/registration}" method="get">
-			<button class="btn btn-md btn-warning btn-block" type="Submit">Go To Registration Page</button>
-		</form>	
-		
-		<div class="container">
-			<img data-th-src="@{/images/login.jpg}" class="img-responsive center-block" width="300" height="300" alt="Logo" />
-			<form data-th-action="@{/login}" method="POST" class="form-signin">
-				<h3 class="form-signin-heading" data-th-text="Welcome"></h3>
-				<br/>
-				
-				<input type="text" id="email" name="username" placeholder="Email/Username"
-					class="form-control" /> <br/> 
-				<input type="password"  data-th-placeholder="Password"
-					id="password" name="password" class="form-control" /> <br /> 
-					
-				<div align="center" data-th-if="${param.error}">
-					<p style="font-size: 20; color: #FF1C19;">Email or Password invalid, please verify</p>
+		<div data-th-replace="fragments/header::header"></div>
+        <!-- !PAGE CONTENT! -->
+		<div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
+			
+			<form data-th-action="@{/login}" method="POST">
+				<div class="imgcontainer">
+					<img src="https://i2.wp.com/www.philosophy-foundation.org/frontpage/img/avatar2.png" alt="Avatar" class="avatar" />
 				</div>
-				<button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit" data-th-text="Login"></button>
+
+				<div class="container">
+					<label><b>Username</b></label>
+					<input type="text" placeholder="Enter Username" id="email" name="username" required="required" />
+
+					<label><b>Password</b></label>
+					<input type="password" placeholder="Enter Password" id="password" name="password" required="required" />
+
+					<button class="w3-black" name="Submit" value="Login" type="Submit">Login</button>
+					<input type="checkbox" checked="checked" /> Remember me
+				</div>
+				<div class="container">
+					<div align="center" data-th-if="${param.error}">
+						<p style="font-size: 20; color: #FF1C19;">Email or Password invalid, please verify</p>
+					</div>
+				</div>
+
+				<div class="container" style="background-color:#f1f1f1">
+					<a class="w3-btn w3-red" data-th-href="@{/}">Cancel</a>
+					<span class="psw">Forgot <a href="#">password?</a></span>
+				</div>
 			</form>
-		</div>
+
+		<!-- End page content -->
+        </div>
+        <hr />
+        <div data-th-replace="fragments/footer::foot"></div>
 	</body>
 </html>

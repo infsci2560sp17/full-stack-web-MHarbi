@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Recipe Details</title>
-        <link rel="stylesheet" type="text/css" href="https://www.w3schools.com/lib/w3.css" />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+        <title>Eat Healthy | Recipe Details</title>
+        <style data-th-replace="fragments/head::head"></style>
         <style>
-            .inline-input { display: inline-block; width: auto; }
             /* Style the container with a rounded border, grey background and some padding and margin */
             .container { 
                 border: 2px solid #ccc; background-color: #eee; border-radius: 5px; padding: 16px; margin: 16px 0; 
@@ -23,7 +21,11 @@
             }
         </style>
     </head>
-    <body class="w3-container">
+    <body>
+        <div data-th-replace="fragments/header::header"></div>
+        <!-- !PAGE CONTENT! -->
+		<div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
+
         <h1><span data-th-text="${recipe.title}" data-th-remove="tag">Title</span></h1>
         
         <table class="w3-table-all w3-hoverable">
@@ -119,17 +121,16 @@
                 <p>
                     <span data-th-switch="${comment.recommended}" data-th-remove="tag">
                         <span data-th-case="1" data-th-remove="tag"><i class="material-icons">check</i> Recommended. | </span>
-                        <span data-th-case="*" data-th-remove="tag"></span>
+                        <span data-th-case="0" data-th-remove="tag"></span>
                     </span>
                     <span data-th-text="${comment.created}" data-th-remove="tag"></span>
                 </p>
             </div>
         </div>
 
+        <!-- End page content -->
+        </div>
         <hr />
-        <form data-th-action="@{/logout}" method="post">
-            <input type="submit" value="Sign Out"/>
-        </form>
-        <hr />
+        <div data-th-replace="fragments/footer::foot"></div>
     </body>
 </html>

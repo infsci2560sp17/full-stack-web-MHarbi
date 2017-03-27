@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>AJAX Example</title>
+        <title>Eat Healthy | Profile</title>
+        <style data-th-replace="fragments/head::head"></style>
         <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.7.1.min.js"></script>
         <script>
             $(function() {  
@@ -21,7 +22,7 @@
                         $('<ul/>', {
                             'class': 'interest-list',
                             html: items.join('')
-                        }).appendTo('body');
+                        }).appendTo('#data');
 
                     },
                     statusCode: {
@@ -35,9 +36,19 @@
         </script>
     </head>
     <body>
+        <div data-th-replace="fragments/header::header"></div>
+        <!-- !PAGE CONTENT! -->
+		<div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
+
         <h1>User Profile!</h1>
 
         <a href="#" id="clickme">Get JSON Data</a>
+        <div id="data"></div>
+
+        <!-- End page content -->
+        </div>
+        <hr />
+        <div data-th-replace="fragments/footer::foot"></div>
         
     </body>
 </html>

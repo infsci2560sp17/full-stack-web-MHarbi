@@ -5,7 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ## [Unreleased]
 ### Added
-- Fix an error in adding comments.
+- Fix an error in adding comments
+- Change the website theme
+- Build a template and uniform the header and footer for all pages
 
 ## [v1.4] - 2017-03-25
 ### Added
