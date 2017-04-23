@@ -152,7 +152,7 @@
                                 if(count % itemsPerRow == 0) html += '<div class="w3-third">';
                                 count++;
                                 html += '<div class="w3-margin-bottom">\
-                                            <img id="'+val.id+'" src="public/files/loading-icon.gif" alt="" style="width:100%" class="recipe-img w3-hover-opacity" />\
+                                            <img id="'+val.id+'" src="upload-dir/loading-icon.gif" alt="" style="width:100%" class="recipe-img w3-hover-opacity" />\
                                             <div class="w3-container w3-light-grey">\
                                                 <a href="/public/recipes/view/' + val.id + '"><p><strong>' + val.title + '</strong></p>\
                                                 <p>' + val.description + '</p></a>\
@@ -173,7 +173,8 @@
                                         url: '/public/api/recipes/pic/' + sel.prop('id'),
                                         dataType: 'json',
                                         success: function(data) {
-                                            sel.prop('src', "public/files/" + data[0]);
+                                            // sel.prop('src', "public/files/" + data[0]);
+                                            sel.prop('src', "upload-dir/" + data[0]);
                                         }
                                     });
                                 });

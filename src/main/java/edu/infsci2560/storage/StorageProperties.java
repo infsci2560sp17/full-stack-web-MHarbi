@@ -10,7 +10,7 @@ public class StorageProperties {
     /**
      * Folder location for storing files
      */
-    private String location = "upload-dir";
+    private String location = "target/classes/static/upload-dir";
 
     public String getLocation() {
         return location;
