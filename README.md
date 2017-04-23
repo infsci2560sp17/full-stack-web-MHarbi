@@ -45,19 +45,12 @@
 
 ### Landing Page
 
-<<<<<<< HEAD
 ![](Screenshots/S1.png)
 
-### User Input Form
+### Recipe Update Form
 
 ![](Screenshots/S9.png)
-=======
-TODO : please provide a description of your landing page inluding a screen shot ![](Screenshots/S7.png)
 
-### User Input Form
-
-TODO : please provide a description of at least 1 user input form including a screen shot ![](Screenshots/S9.png)
->>>>>>> 7316845102dcbfa992d0fc6aee25d7cc34d3488a
 
 ## API
 
@@ -188,4 +181,3 @@ All known errors cause the resource to return HTTP error code header together wi
 - [jQuery Validation Plugin](https://jqueryvalidation.org/) - jQuery Validation Plugin is a feature rich jQuery plugin that makes it easy to validate user input while keeping your HTML markup clean from javascript code.
 - [W3.CSS](https://www.w3schools.com/w3css/) - W3.CSS is a modern CSS framework with built-in responsiveness.
 =======
->>>>>>> 7316845102dcbfa992d0fc6aee25d7cc34d3488a
