@@ -26,14 +26,6 @@ public class UsersService {
     @Autowired
     private UserRepository repository;
 
-    @RequestMapping(value = "/profile", method = RequestMethod.GET)
-    public ModelAndView profile() {
-
-        User user = repository.findById(1L);
-
-        return new ModelAndView("ajax/profile", "user", user);
-    }
-
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<Iterable<User>> list() {
         HttpHeaders headers = new HttpHeaders();

@@ -15,6 +15,7 @@ public class Ingredient {
         None,
         Pound,
         Tablespoon,
+        Teaspoon,
         Ounce,
         Cup,
         Dash

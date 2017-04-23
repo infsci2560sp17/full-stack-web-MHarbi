@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Eat Healthy | Profile</title>
+        <style data-th-replace="fragments/head::head"></style>
+        <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.1.1.min.js"></script>
+    </head>
+    <body>
+        <div data-th-replace="fragments/header::header"></div>
+        <!-- !PAGE CONTENT! -->
+		<div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
+         <div class="w3-row">
+            <div class="w3-col m6">
+                <h1>User Profile!</h1>
+            </div>
+            <div class="w3-col m6 w3-right-align">
+                <p />
+                <a data-th-href="@{|/users/update/${user.id}|}" class="w3-btn w3-theme"><i class="material-icons">edit</i> Edit Your Profile</a>
+            </div>
+        </div>
+
+        <div id="loader"></div>
+        <div id="data"></div>
+
+        <!-- End page content -->
+        </div>
+        <hr />
+        <div data-th-replace="fragments/footer::foot"></div>
+        <script>
+            $(document).ready(function () {
+
+                document.getElementById("loader").style.display = "block";
+                setTimeout(function(){ }, 1000);
+
+                $(function() {  
+                    $.ajax({
+                    url: '<span data-th-text="@{/public/api/users/}+${user.id}" data-th-remove="tag"></span>',
+                    dataType: 'json',
+                    success: function(data) {
+                        var html = '';
+
+                        html += '<table class="w3-table-all w3-hoverable">\
+                                    <tr>\
+                                        <th class="w3-theme-l2" style="width: 25%">First Name</th>\
+                                        <td>' + data.firstName + '</td>\
+                                    </tr>\
+                                    <tr>\
+                                        <th class="w3-theme-l2" style="width: 25%">Last Name</th>\
+                                        <td>' + data.lastName + '</td>\
+                                    </tr>\
+                                    <tr>\
+                                        <th class="w3-theme-l2" style="width: 25%">Gender</th>\
+                                        <td>' + data.gender + '</td>\
+                                    </tr>\
+                                    <tr>\
+                                        <th class="w3-theme-l2" style="width: 25%">Email</th>\
+                                        <td>' + data.email + '</td>\
+                                    </tr>\
+                                    <tr>\
+                                        <th class="w3-theme-l2" style="width: 25%">Roles</th>\
+                                        <td>' + data.roles + '</td>\
+                                    </tr>\
+                                </table>';
+                        $('#data').html(html);
+                        document.getElementById("loader").style.display = "none";
+
+                    },
+                    statusCode: {
+                        404: function() {
+                            document.getElementById("loader").style.display = "none";
+                            alert('There was a problem with the server.  Try again soon!');
+                        }
+                    }
+                    });
+                });
+            });
+        </script>
+        <style>
+            /* Center the loader */
+            #loader {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            z-index: 1;
+            width: 150px;
+            height: 150px;
+            margin: -75px 0 0 -75px;
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #3f51b5;
+            width: 120px;
+            height: 120px;
+            -webkit-animation: spin 2s linear infinite;
+            animation: spin 2s linear infinite;
+            }
+
+            @-webkit-keyframes spin {
+            0% { -webkit-transform: rotate(0deg); }
+            100% { -webkit-transform: rotate(360deg); }
+            }
+
+            @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+            }
+
+            /* Add animation to "page content" */
+            .animate-bottom {
+            position: relative;
+            -webkit-animation-name: animatebottom;
+            -webkit-animation-duration: 1s;
+            animation-name: animatebottom;
+            animation-duration: 1s
+            }
+
+            @-webkit-keyframes animatebottom {
+            from { bottom:-100px; opacity:0 } 
+            to { bottom:0px; opacity:1 }
+            }
+
+            @keyframes animatebottom { 
+            from{ bottom:-100px; opacity:0 } 
+            to{ bottom:0; opacity:1 }
+            }
+
+            .pagination-btn {
+                padding-bottom: 1px !important;
+                padding-left: 8px !important;
+                padding-right: 8px !important;
+            }
+        </style>
+    </body>
+</html>

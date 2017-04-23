@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.CascadeType;
 import javax.persistence.Id;
 import javax.persistence.ElementCollection;
@@ -31,7 +32,8 @@ public class Recipe {
         Salad,
         Sandwich,
         Sauce_Stew,
-        Smoothie
+        Smoothie,
+        Juice
     }
 
     public enum MealType {
@@ -47,6 +49,7 @@ public class Recipe {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
     protected String title;
+    protected String description;
     protected DishType dishType;
     protected MealType mealType;
     protected int servings;
@@ -64,6 +67,9 @@ public class Recipe {
     @OneToMany(targetEntity=Comment.class, mappedBy="recipe", cascade=CascadeType.ALL)
     protected List<Comment> comments;
 
+    @ManyToOne
+    protected User user;
+
 
     public Recipe() {
         this.id = Long.MAX_VALUE;
@@ -72,8 +78,9 @@ public class Recipe {
         this.mealType = MealType.None;
     }
 
-    public Recipe(String title, DishType dishType, MealType mealType, int servings, int prepTime, int cookTime, List<String> directions) {
+    public Recipe(String title, String description, DishType dishType, MealType mealType, int servings, int prepTime, int cookTime, List<String> directions) {
         this.title = title;
+        this.description = description;
         this.dishType = dishType;
         this.mealType = mealType;
         this.servings = servings;
@@ -85,8 +92,8 @@ public class Recipe {
     @Override
     public String toString() {
         String result = String.format(
-                "Recipe[id=%d, title='%s', dishType='%s', mealType='%s', servings='%d', nutrition='%s', prepTime='%d', cookTime='%d']%n",
-                this.id, this.title, this.dishType, this.mealType, this.servings, this.nutrition.toString(), this.prepTime, this.cookTime);
+                "Recipe[id=%d, title='%s', description='%s', dishType='%s', mealType='%s', servings='%d', nutrition='%s', prepTime='%d', cookTime='%d']%n",
+                this.id, this.title, this.description, this.dishType, this.mealType, this.servings, this.nutrition.toString(), this.prepTime, this.cookTime);
         if (ingredients != null) {
             for(Ingredient ingredient : ingredients) {
                 result += String.format(
@@ -110,17 +117,31 @@ public class Recipe {
     }
 
     /**
-     * @return the name
+     * @return the title
      */
     public String getTitle() {
         return title;
     }
 
     /**
-     * @param title the name to set
+     * @param title the title to set
      */
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    /**
+     * @return the description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * @param description the description to set
+     */
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     /**
@@ -219,6 +240,14 @@ public class Recipe {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
 }

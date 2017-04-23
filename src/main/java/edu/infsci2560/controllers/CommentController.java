@@ -41,7 +41,7 @@ public class CommentController {
 		Comment com = repository.findById(id);
 		Long recipe_id = com.getRecipe().getId();
 		repository.deleteById(id);
-		return new ModelAndView("redirect:/recipes/view/" + recipe_id);
+		return new ModelAndView("redirect:/public/recipes/view/" + recipe_id);
 	}
 
 	@RequestMapping(value = "/comments/add/{id}", method = RequestMethod.POST)
@@ -54,7 +54,7 @@ public class CommentController {
 		comment.setCreated(LocalDateTime.now());
 
         repository.save(comment);
-        return new ModelAndView("redirect:/recipes/view/" + id);
+        return new ModelAndView("redirect:/public/recipes/view/" + id);
     }
 
 }

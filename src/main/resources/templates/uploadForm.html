@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>File Upload</title>
+         <link href="styles.css" />        
+    </head>
+    <body>
+
+        <div data-th-if="${message}">
+            <h2 data-th-text="${message}"/>
+        </div>
+
+        <div>
+            <form data-th-action="@{/files}" name="uploadFileForm" method="POST" enctype="multipart/form-data" >                
+            <!--<form data-th-action="@{/files(${_csrf.parameterName}=${_csrf.token})}" name="uploadFileForm" method="POST" enctype="multipart/form-data" >                                -->
+                File to upload: <input type="file" name="files" accept="image/*" /><br />
+                File to upload: <input type="file" name="files" accept="image/*" /><br />
+                <input type="submit" value="Upload" />
+            </form>
+        </div>
+
+        <div>
+            <ul>
+                <li data-th-each="file : ${files}">
+                    <a data-th-href="${file}" data-th-text="${file}"></a>
+                </li>
+            </ul>
+        </div>
+    </body>
+</html>

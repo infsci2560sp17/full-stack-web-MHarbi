@@ -13,35 +13,35 @@
 
         <table class="w3-table-all w3-hoverable">
             <tr>
-                <th class="w3-teal" style="width: 25%">ID</th>
+                <th class="w3-theme-l2" style="width: 25%">ID</th>
                 <td data-th-text="${user.id}"></td>
             </tr>
             <tr>
-                <th class="w3-teal">First Name</th>
+                <th class="w3-theme-l2">First Name</th>
                 <td data-th-text="${user.firstName}"></td>
             </tr>
             <tr>
-                <th class="w3-teal">Last Name</th>
+                <th class="w3-theme-l2">Last Name</th>
                 <td data-th-text="${user.lastName}"></td>
             </tr>
             <tr>
-                <th class="w3-teal">Gender</th>
+                <th class="w3-theme-l2">Gender</th>
                 <td data-th-text="${user.gender}"></td>
             </tr>
             <tr>
-                <th class="w3-teal">Email</th>
+                <th class="w3-theme-l2">Email</th>
                 <td data-th-text="${user.email}"></td>
             </tr>
             <tr>
-                <th class="w3-teal">Password</th>
+                <th class="w3-theme-l2">Password</th>
                 <td data-th-text="${user.password}"></td>
             </tr>
             <tr>
-                <th class="w3-teal">Active</th>
+                <th class="w3-theme-l2">Active</th>
                 <td data-th-text="${user.active}"></td>
             </tr>
             <tr>
-                <th class="w3-teal">Role(s)</th>
+                <th class="w3-theme-l2">Role(s)</th>
                 <td>
                     <ul> 
                         <li data-th-each="role : ${user.roles}" data-th-text="${role}"></li>
@@ -51,8 +51,8 @@
             <tr>
                 <td></td>
                 <td>
-                    <a data-th-href="@{|/users/update/${user.id}|}" class="w3-btn w3-blue"><i class="material-icons">edit</i> Update</a>
-                    <form data-th-object="${user}" data-th-action="@{/users/delete/} + ${user.id}" data-th-method="delete" class="inline-input" onsubmit="return confirm('This user will be permanently deleted and cannot be recovered. Are you sure?')">
+                    <a data-th-href="@{|/users/update/${user.id}|}" class="w3-btn w3-theme"><i class="material-icons">edit</i> Update</a>
+                    <form data-th-object="${user}" data-th-action="@{/admin/users/delete/} + ${user.id}" data-th-method="delete" class="inline-input" onsubmit="return confirm('This user will be permanently deleted and cannot be recovered. Are you sure?')">
                         <button class="button w3-btn w3-red" type="submit" value="Submit"><i class="material-icons">delete</i> Delete</button>
                     </form>
                 </td>

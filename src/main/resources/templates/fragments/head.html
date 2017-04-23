@@ -2,12 +2,81 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+        <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-indigo.css" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
         <style>
-            body, h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif;}
+            body, h1,h2,h3,h4,h5,h6 {font-family: "Open Sans", sans-serif; font-weight: 300; /*color: #2e3d49;*/}
             .w3-group {margin-top: 8px;}
             .inline-input { display: inline-block; width: auto; }
+
+            .hover-no:hover {
+                color: inherit!important;
+                background-color: inherit!important;
+            }
+            .focus-no:focus {
+                outline: -webkit-focus-ring-color auto 0px;
+            }
+
+            /* The alert message box */
+            .alert {
+                padding: 20px;
+                background-color: #f44336; /* Red */
+                color: white;
+                margin-bottom: 15px;
+            }
+
+            /* The close button */
+            .closebtn {
+                margin-left: 15px;
+                color: white;
+                font-weight: bold;
+                float: right;
+                font-size: 22px;
+                line-height: 20px;
+                cursor: pointer;
+                transition: 0.3s;
+            }
+
+            /* When moving the mouse over the close button */
+            .closebtn:hover {
+                color: black;
+            }
+            .alert.success {
+                background-color: #4CAF50;
+            }
+            .w3-hover-theme-l2:hover {
+                background-color: #8995d6 !important;
+                color: white !important;
+            }
+            .w3-hover-theme-d3:hover {
+                background-color: #2d397f !important;
+                color: white !important;
+            }
+            a { text-decoration: none; }
         </style>
+        <script type="text/javascript" data-th-inline="javascript" th:inline="javascript">
+        /*<![CDATA[*/
+            // Get all elements with class="closebtn"
+            var close = document.getElementsByClassName("closebtn");
+            var i;
+
+            // Loop through all close buttons
+            for (i = 0; i < close.length; i++) {
+                // When someone clicks on a close button
+                close[i].onclick = function(){
+
+                    // Get the parent of <span class="closebtn"> (<div class="alert">)
+                    var div = this.parentElement;
+
+                    // Set the opacity of div to 0 (transparent)
+                    div.style.opacity = "0";
+
+                    // Hide the div after 600ms (the same amount of milliseconds it takes to fade out)
+                    setTimeout(function(){ div.style.display = "none"; }, 600);
+                }
+            }
+            /*]]>*/
+            </script>
     </head>

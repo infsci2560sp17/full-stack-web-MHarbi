@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.ElementCollection;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.CascadeType;
 import javax.persistence.Enumerated;
 import javax.persistence.EnumType;
@@ -22,7 +23,7 @@ public class User {
     }
 
     public enum Role {
-        USER, ADMIN
+        MEMBER, ADMIN
     }
 
     @Id
@@ -38,6 +39,9 @@ public class User {
     @ElementCollection(targetClass=Role.class)
     @Enumerated(EnumType.STRING)
     private List<Role> roles;
+
+    @OneToMany(targetEntity=Recipe.class, mappedBy="user", cascade=CascadeType.ALL)
+    private List<Recipe> recipe;
 
     public User() {}
 
@@ -166,5 +170,13 @@ public class User {
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
+
+    // public List<Recipe> getRecipe() {
+    //     return recipe;
+    // }
+
+    public void setRecipe(List<Recipe> recipe) {
+        this.recipe = recipe;
+    }
 
 }

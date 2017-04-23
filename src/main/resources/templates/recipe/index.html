@@ -3,6 +3,88 @@
     <head>
         <title>Eat Healthy | Recipes</title>
         <style data-th-replace="fragments/head::head"></style>
+        <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.1.1.min.js"></script>
+        <script>
+            function loadRecipe(id, event) {
+                event.preventDefault();
+                $(function() {
+                    $.ajax({
+                    url: '<span data-th-text="@{/public/api/recipes/}" data-th-remove="tag"></span>' + id,
+                    dataType: 'json',
+                    success: function(data) {
+                        var items = [];
+                        var htmlRow = '<tr id="recipe-detail-'+id+'"><td colspan="11"> \
+                        <table class="w3-table"> \
+                            <tr class="w3-text-theme"> \
+                                <th>Description</th> \
+                            </tr> \
+                            <tr> \
+                                <td>' + data.description + '</td> \
+                            </tr> \
+                        </table> \
+                        <table class="w3-table"> \
+                                            <tr class="w3-text-theme"> \
+                                                <th style="width:33.33%;">Ingredients</th> \
+                                                <th style="width:45%;">Directions</th> \
+                                                <th style="width:18.66%;">Nutrition</th> \
+                                            </tr>';
+                        htmlRow = htmlRow + '<tr class="w3-theme-l5">';
+                        data = data;
+                        // ingredients
+                        htmlRow = htmlRow + '<td>';
+                        if(data.ingredients != null) {
+                            htmlRow = htmlRow + '<ul>';
+                            $.each(data.ingredients, function(key, val) {
+                                if(val.unit == 'None')
+                                    val.unit = "";
+                                htmlRow = htmlRow + '<li>' + val.value + " " + val.unit + " " + val.text +'</li>';
+                                });
+                            htmlRow = htmlRow + '</ul>';
+                        }
+                        htmlRow = htmlRow + '</td>';
+                        // directions
+                        htmlRow = htmlRow + '<td>';
+                        if(data.directions != null) {
+                            htmlRow = htmlRow + '<ol>';
+                            $.each(data.directions, function(key, val) {
+                                htmlRow = htmlRow + '<li>' + val +'</li>';
+                                });
+                            htmlRow = htmlRow + '</ol>';
+                        }
+                        htmlRow = htmlRow + '</td>';
+                        // nutrition
+                        htmlRow = htmlRow + '<td>';
+                        if(data.nutrition != null) {
+                            htmlRow = htmlRow + '<ul>';
+                            htmlRow = htmlRow + '<li><strong>Calories: </strong>' + data.nutrition.calories + 'kcal</li>';
+                            htmlRow = htmlRow + '<li><strong>Fat: </strong>' + data.nutrition.fat + 'g</li>';
+                            htmlRow = htmlRow + '<li><strong>Carbs: </strong>' + data.nutrition.carbs + 'g</li>';
+                            htmlRow = htmlRow + '<li><strong>Protein: </strong>' + data.nutrition.protein + 'g</li>';
+                            htmlRow = htmlRow + '<li><strong>Cholesterol: </strong>' + data.nutrition.cholesterol + 'mg</li>';
+                            htmlRow = htmlRow + '<li><strong>Sodium: </strong>' + data.nutrition.sodium + 'mg</li>';
+                            htmlRow = htmlRow + '</ul>';
+                        }
+                        htmlRow = htmlRow + '</td>';
+
+                        var htmlRow = htmlRow + '</tr></table></td></tr>';
+                        $('#recipe-'+id).after(htmlRow);
+                        $('#recipe-cldetail-'+id).html('<a href="#" onclick="unloadRecipe('+id+',event);"><i class="material-icons">remove</i></a>');
+
+                    },
+                    statusCode: {
+                        404: function() {
+                            alert('There was a problem with the server.  Try again soon!');
+                        }
+                    }
+                    });
+                });
+            }
+            function unloadRecipe(id, event) {
+                event.preventDefault();
+                $('#recipe-detail-'+id).remove();
+                $('#recipe-cldetail-'+id).html('<a href="#" onclick="loadRecipe('+id+',event);"><i class="material-icons">add</i></a>');
+            }
+        </script>
         <style>
             .button {
                 background-color: Transparent;
@@ -19,73 +101,60 @@
         <!-- !PAGE CONTENT! -->
 		<div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
 
-        <h1>Recipes!</h1>
+        <div class="w3-row">
+            <div class="w3-col m6">
+                <h1>Recipes!</h1>
+            </div>
+            <div class="w3-col m6 w3-right-align">
+                <p />
+                <a data-th-href="@{/recipes/add}" class="w3-btn w3-theme">New Recipe</a>
+            </div>
+        </div>
         
-        <table class="w3-table-all w3-hoverable">
-            <tr class="w3-teal">
+        <div data-th-if="${message}" data-th-class="alert+ ${message_type}">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+            <strong data-th-if="${message_title}" data-th-text="${message_title}">Alert!</strong>
+            <span data-th-text="${message}" th:remove="tag"/>
+        </div>
+
+        <table class="w3-table w3-border w3-bordered">
+            <tr class="w3-theme-l1">
+                <th></th>
                 <th>ID</th>
                 <th>Name</th>
                 <th>Dish Type</th>
                 <th>Meal Type</th>
-                <th width="300">Ingredients</th>
-                <th width="300">Directions</th>
+                <th># of Ingredients</th>
+                <th># of Directions</th>
                 <th>Servings</th>
                 <th>Prep. Time</th>
                 <th>Cook Time</th>
-                <th width="170">Nutrition</th>
-                <th>...</th>
+                <th width="108">...</th>
             </tr>                
-            <tr data-th-each="recipe : ${recipes}">
+            <tr data-th-each="recipe : ${recipes}" data-th-id="|recipe-${recipe.id}|">
+                <td data-th-id="|recipe-cldetail-${recipe.id}|"><a href="#" data-th-onclick="|loadRecipe(${recipe.id},event);|"><i class="material-icons">add</i></a></td>
                 <td data-th-text="${recipe.id}"></td>
                 <td data-th-text="${recipe.title}"></td>
-                <td data-th-text="${recipe.dishType}"></td>
-                <td data-th-text="${recipe.mealType}"></td>
-                <td>
-                    <ul> 
-                        <li data-th-each="ingredient : ${recipe.ingredients}" data-th-text="|${ingredient.value} ${ingredient.unit} ${ingredient.text}|"></li>
-                    </ul>
-                </td>
-                <td>
-                    <ol> 
-                        <li data-th-each="direction : ${recipe.directions}" data-th-text="${direction}"></li>
-                    </ol>
-                </td>
+                <td data-th-utext="${#strings.replace(recipe.dishType,'_',' &amp; ')}"></td>
+                <td data-th-utext="${#strings.replace(recipe.mealType,'_',' &amp; ')}"></td>
+                <td data-th-text="${#lists.size(recipe.ingredients)}"></td>
+                <td data-th-text="${#lists.size(recipe.directions)}"></td>
                 <td data-th-text="${recipe.servings}"></td>
                 <td><span data-th-text="${recipe.prepTime}" data-th-remove="tag"></span> <span class="w3-tiny w3-center">(min.)</span></td>
                 <td><span data-th-text="${recipe.cookTime}" data-th-remove="tag"></span> <span class="w3-tiny w3-center">(min.)</span></td>
-                <td>
-                    <ul>
-                        <li><strong>Calories: </strong>
-                            <span data-th-if="${recipe.nutrition != null}" data-th-text="${recipe.nutrition.calories}" data-th-remove="tag">0</span>kcal
-                        </li>
-                        <li><strong>Fat: </strong>
-                            <span data-th-if="${recipe.nutrition != null}" data-th-text="${recipe.nutrition.fat}" data-th-remove="tag">0.0</span>g
-                        </li>
-                        <li><strong>Carbs: </strong>
-                            <span data-th-if="${recipe.nutrition != null}" data-th-text="${recipe.nutrition.carbs}" data-th-remove="tag">0.0</span>g
-                        </li>
-                        <li><strong>Protein: </strong>
-                            <span data-th-if="${recipe.nutrition != null}" data-th-text="${recipe.nutrition.protein}" data-th-remove="tag">0.0</span>g
-                        </li>
-                        <li><strong>Cholesterol: </strong>
-                            <span data-th-if="${recipe.nutrition != null}" data-th-text="${recipe.nutrition.cholesterol}" data-th-remove="tag">0.0</span>mg
-                        </li>
-                        <li><strong>Sodium: </strong>
-                            <span data-th-if="${recipe.nutrition != null}" data-th-text="${recipe.nutrition.sodium}" data-th-remove="tag">0.0</span>mg
-                        </li>
-                    </ul>
-                </td>
                 <td style="vertical-align: middle;">
-                    <a data-th-href="@{|/recipes/view/${recipe.id}|}"><i class="material-icons">zoom_in</i></a>
-                    <!--<a data-th-href="@{|/recipes/update/${recipe.id}|}"><i class="material-icons">edit</i></a>-->
-                    <!--<form data-th-object="${recipe}" data-th-action="@{/recipes/delete/} + ${recipe.id}" data-th-method="delete" class="inline-input" onsubmit="return confirm('This recipe will be permanently deleted and cannot be recovered. Are you sure?')">
+                    <a data-th-href="@{|/public/recipes/view/${recipe.id}|}"><i class="material-icons">zoom_in</i></a>
+                    <a data-th-href="@{|/recipes/update/${recipe.id}|}"><i class="material-icons">edit</i></a>
+                    <form data-th-object="${recipe}" data-th-action="@{/recipes/delete/} + ${recipe.id}" data-th-method="delete" class="inline-input" onsubmit="return confirm('This recipe will be permanently deleted and cannot be recovered. Are you sure?')">
                         <button class="button" type="submit" value="Submit"><i class="material-icons">delete</i></button>
-                    </form>-->
+                    </form>
                 </td>
             </tr>
         </table>
         <hr />
-        <a data-th-href="@{/recipes/add}" class="w3-btn w3-blue">New Recipe</a>
+        <div class="w3-right-align">
+            <a data-th-href="@{/recipes/add}" class="w3-btn w3-theme">New Recipe</a>
+        </div>
         
         <!-- End page content -->
         </div>

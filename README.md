@@ -34,79 +34,147 @@
 * User can add and display your recipes.
 * All recipes can be retrieved through the api as a JSON format.
 * A particular recipe could be retrieved by its ID through the api as a JSON format.
-* Administrator can manage Users.
+* Administrator has full control over all users/recipes data.
 * Users can add comments.
+* Users can upload multiple images to recipes
+* Each user has full control over its own recipes (add/update/delete).
+* Validation of forms using Javascript
+* Anonymous user can explore the recipes.
 
 ## Project Details
 
 ### Landing Page
 
-TODO : please provide a description of your landing page inluding a screen shot ![](Screenshots/S7.png)
+![](Screenshots/S1.png)
 
 ### User Input Form
 
-TODO : please provide a description of at least 1 user input form including a screen shot ![](Screenshots/S9.png)
+![](Screenshots/S9.png)
 
 ## API
 
-TODO : please provide a description of at least 1 API including a sample of request data and response data in both XML and JSON format.
-
 ### API Method 1
 
-    POST photos/:id/tags
+    POST /public/api/recipes/:id
 
 #### Parameters
 
-- **id** _(required)_ — The Photo ID to add tags for.
-- **tags** _(required)_ — Comma separated tags.
+- **id** _(required)_ — The Recipe ID to get its data.
 
 #### Response
 
-A JSON or XMLobject containing the PhotoID and list of tags accepted.
+A JSON containing the Recipe data.
 
 #### Errors
 
 All known errors cause the resource to return HTTP error code header together with a JSON array containing at least 'status' and 'error' keys describing the source of error.
 
-- **404 Not Found** — The photo was not found.
+- **404 Not Found** — The recipe was not found.
 
 #### Example
 
 ##### Request
 
-    POST /v1/photos/123456/tags
-
-##### Body
-
-    tags=cute,puppy
+    POST /public/api/recipes/1
 
 
 ##### JSON Response
 
 ```json
 {
-    "photoId": 123456,
-    "tags": ["cute", "puppy"]
+    "id":1,
+    "title":"Kabob Marinade",
+    "description":"This is a tasty, easy to make marinade that is great for any grilled meat. It makes enough for about two pounds of uncooked meat. Hunters - try this on your deer.",
+    "dishType":"Dish",
+    "mealType":"Dinner",
+    "servings":6,
+    "nutrition":
+    {
+        "id":1,
+        "calories":115.0,
+        "fat":3.6,
+        "carbs":21.1,
+        "protein":1.4,
+        "cholesterol":0.0,
+        "sodium":1018.0
+    },
+    "prepTime":15,
+    "cookTime":15,
+    "directions":
+    [
+        "In a large resealable plastic bag, combine the oil, soy sauce, lemon juice, Worcestershire sauce, mustard, ground black pepper, garlic, and meat tenderizer.",
+        "Mix well, and add your favorite meat. Seal the bag, and marinate in the refrigerator for 4 to 24 hours"
+    ],
+    "ingredients":
+    [
+        {
+            "id":1,
+            "value":"1",
+            "unit":"Cup",
+            "text":"vegetable oil"
+        },
+        {
+            "id":2,
+            "value":"3/4",
+            "unit":"Cup",
+            "text":"soy sauce"
+        },
+        {
+            "id":3,
+            "value":"1/2",
+            "unit":"Cup",
+            "text":"lemon juice"
+        },
+        {
+            "id":4,
+            "value":"1/4",
+            "unit":"Cup",
+            "text":"Worcestershire sauce"
+        },
+        {
+            "id":5,
+            "value":"1/4",
+            "unit":"Cup",
+            "text":"prepared mustard"
+        },
+        {
+            "id":6,
+            "value":"1 1/2",
+            "unit":"Teaspoon",
+            "text":"oarsely cracked black pepper"
+        },
+        {
+            "id":7,
+            "value":"2",
+            "unit":"None",
+            "text":"cloves garlic, minced"
+        },
+        {
+            "id":8,
+            "value":"1",
+            "unit":"Teaspoon",
+            "text":"meat tenderizer (optional)"
+        }
+    ],
+    "comments":[],
+    "user":
+    {
+        "id":1,
+        "firstName":"Mohammed",
+        "lastName":"Alharbi",
+        "gender":"Male",
+        "email":"user@me.com",
+        "active":1,
+        "roles":["MEMBER"]
+    }
 }
-```
-
-##### XML Response
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<PhotoTags>
-    <photoId>123456</PhotoId>
-        <tags>
-            <tag>cute</tag>
-            <tag>puppy</tag>
-        </tags>
-</PhotoTags>
 ```
 
 ## Technologies Used
 
-TODO : List all technologies used in your project
-
 - [Spring Boot](https://projects.spring.io/spring-boot/) - Takes an opinionated view of building production-ready Spring applications.
 - [Thymleaf](http://www.thymeleaf.org/) - Thymeleaf is a modern server-side Java template engine for both web and standalone environments.
 - [Maven](https://maven.apache.org/) - Apache Maven is a software project management and comprehension tool.
+- [JQuery](https://jquery.com/) - jQuery is a cross-platform JavaScript library designed to simplify the client-side scripting of HTML.
+- [jQuery Validation Plugin](https://jqueryvalidation.org/) - jQuery Validation Plugin is a feature rich jQuery plugin that makes it easy to validate user input while keeping your HTML markup clean from javascript code.
+- [W3.CSS](https://www.w3schools.com/w3css/) - W3.CSS is a modern CSS framework with built-in responsiveness.

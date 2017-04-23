@@ -3,68 +3,136 @@
 	<head>
 		<title>Eat Healthy | User Update</title>
 		<style data-th-replace="fragments/head::head"></style>
+		<script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.1.1.min.js"></script>
+		<style>
+			/* Bordered form */
+			form {
+				border: 3px solid #f1f1f1;
+				width: 50%;
+				margin: auto;
+			}
+
+			/* Set a style for all buttons */
+			button {
+				/*background-color: #4CAF50;*/
+				color: white;
+				padding: 14px 20px;
+				margin: 8px 0;
+				border: none;
+				cursor: pointer;
+				width: 100%;
+			}
+
+			/* Add a hover effect for buttons */
+			button:hover {
+				opacity: 0.8;
+			}
+
+			.navbtn {
+				width: 100%;
+				padding: 15px 0;
+				border-bottom: 3px solid #f1f1f1;
+				border-left: 3px solid #f1f1f1;
+				font-weight: 600;
+			}
+			input.error, input.error:hover, textarea.error, textarea.error:hover {
+                border-color: #f44336!important;
+            }
+            label.error {
+                color: #f44336!important;
+            }
+            input.success, input.success:hover, textarea.success, textarea.success:hover  {
+                border-color: #4CAF50!important;
+            }
+            label.success {
+                color: #4CAF50!important;
+            }
+
+		</style>
 	</head>
 	<body>
 		<div data-th-replace="fragments/header::header"></div>
         <!-- !PAGE CONTENT! -->
 		<div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
+		
+			<form autocomplete="off" id="signupForm" data-th-action="@{/users/update/} + ${user.id}" data-th-object="${user}" data-th-method="put" role="form">
+				<div class="w3-row">
+					<div class="w3-col m6 w3-center w3-white" style="padding: 15px 0; font-weight: 600;">
+						USER UPDATE
+					</div>
+					<div class="w3-col m6 w3-center navbtn w3-theme-l5">
+						<p />
+					</div>
+				</div>
+				<div class="w3-margin-bottom w3-center" style="margin-top: 24px;">
+					<h1>Update Your Account</h1>
+					<p>Your account is your portal to all things in Eat Healthy: your recipes, comments, favorite recipes, and more! You should keep it updated.</p>	
+				</div>
+				<div class="w3-padding w3-padding-16">
+					<div data-th-if="${message}" data-th-class="alert+ ${message_type}">
+						<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+						<strong data-th-if="${message_title}" data-th-text="${s}">Alert!</strong>
+						<span data-th-text="${message}" th:remove="tag"/>
+					</div>
 
-		<div class="w3-row">
-            <div class="w3-half w3-card-4">
-                <div class="w3-container w3-black">
-                    <h3>Update User</h3>
-                </div>
-				
-				<form autocomplete="off" data-th-action="@{/users/update/} + ${user.id}" data-th-object="${user}" data-th-method="put" class="w3-container" role="form">
-                    <div class="w3-group"> 
+					<div class="w3-group"> 
                         <label>First Name:</label>
-						<label data-th-if="${#fields.hasErrors('firstName')}" data-th-errors="*{firstName}" class="validation-message"></label>
-						<input type="text" data-th-field="*{firstName}" class="w3-input w3-border w3-round" />
+						<input type="text" data-th-field="*{firstName}" class="w3-input w3-border w3-round" required="required" />
+						<label data-th-if="${#fields.hasErrors('firstName')}" data-th-errors="*{firstName}" class="error"></label>
                     </div>
 					<div class="w3-group"> 
                         <label>Last Name:</label>
-						<label	data-th-if="${#fields.hasErrors('lastName')}" data-th-errors="*{lastName}" class="validation-message"></label>
-						<input type="text" data-th-field="*{lastName}" class="w3-input w3-border w3-round" />
+						<input type="text" data-th-field="*{lastName}" class="w3-input w3-border w3-round" required="required" />
+						<label	data-th-if="${#fields.hasErrors('lastName')}" data-th-errors="*{lastName}" class="error"></label>
                     </div>
 					<div class="w3-group">
-						<input type="radio" data-th-field="*{gender}" value="Male" class="w3-radio" />
+						<input type="radio" data-th-field="*{gender}" checked="checked" value="Male" class="w3-radio" />
 						<label>Male</label>
-						<input type="radio" data-th-field="*{gender}" value="Female" class="w3-radio" />
+						<input type="radio" data-th-field="*{gender}" value="Female" class="w3-radio" required="required" />
 						<label>Female</label>
 					</div>
 					<div class="w3-group"> 
                         <label>Email:</label>
-						<input type="text" data-th-field="*{email}" class="w3-input w3-border w3-round" /> 
-						<label data-th-if="${#fields.hasErrors('email')}" data-th-errors="*{email}" class="validation-message"></label>
+						<input type="text" data-th-field="*{email}" class="w3-input w3-border w3-round" email="email" required="required" /> 
+						<label data-th-if="${#fields.hasErrors('email')}" data-th-errors="*{email}" class="error"></label>
                     </div>
-					<div class="w3-group"> 
-                        <label>Password:</label>
-						<input type="password" data-th-field="*{password}" class="w3-input w3-border w3-round" /> 
-						<label data-th-if="${#fields.hasErrors('password')}" data-th-errors="*{password}" class="validation-message"></label>
-                    </div>
-                    <div class="w3-group"> 
+					<div data-th-if="${admin}" class="w3-group"> 
                         <label>Roles:</label>
                         <div th:each="role : ${allRoles}">
                             <input type="checkbox" data-th-field="*{roles}" data-th-value="${role}" class="w3-check" />
                             <label th:text="${role}">ROLE</label>
                         </div>
                     </div>
-                    
-                    <div class="w3-group"> 
-                        <input class="w3-btn w3-blue-grey" type="submit" value="Update User"/>
+					<div class="w3-group"> 
+                        <label>Password:</label>
+						<input type="password" data-th-field="*{password}" class="w3-input w3-border w3-round" required="required" /> 
+						<label data-th-if="${#fields.hasErrors('password')}" data-th-errors="*{password}" class="error"></label>
                     </div>
+					
+				</div>
 
-					<div class="w3-group">
-						<span data-th-utext="${successMessage}"></span>
-					</div>
-                </form>
-            </div>
-        </div>
+				<div class="w3-padding w3-padding-16 w3-right-align" style="background-color:#f1f1f1"> 
+					<input class="w3-btn w3-black w3-theme" type="submit" value="UPDATE"/>
+				</div>
+			</form>
 
 		 <!-- End page content -->
         </div>
         <hr />
         <div data-th-replace="fragments/footer::foot"></div>
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+        <script type="text/javascript" data-th-inline="javascript" th:inline="javascript">
+        /*<![CDATA[*/
+            $(document).ready(function () {
 
+                $('#signupForm').validate({
+                    validClass: "success",
+                    rules: {
+                    }
+                });
+
+            });
+        /*]]>*/
+        </script>
 	</body>
 </html>

@@ -1,20 +1,46 @@
 	<div th:fragment="header" th:remove="tag">
 		<!-- Navbar -->
 		<div class="w3-top">
-			<div class="w3-bar w3-white w3-padding w3-card-2" style="letter-spacing:4px;">
-				<a data-th-href="@{/}" class="w3-bar-item w3-button">Eat Healthy</a>
+			<div class="w3-bar w3-theme-d3 w3-padding w3-card-2" style="letter-spacing:2px;">
+				<a data-th-href="@{/}" class="w3-bar-item w3-button" style="font-weight: 400;">Eat Healthy</a>
 				<!-- Right-sided navbar links. Hide them on small screens -->
 				<div class="w3-right w3-hide-small">
-					<a data-th-href="@{/recipes}" class="w3-bar-item w3-button" data-th-if="${#httpServletRequest.remoteUser}">Recipes</a>
-					<a data-th-href="@{/users}" class="w3-bar-item w3-button" data-th-if="${#httpServletRequest.remoteUser}">Users</a>
-					<a data-th-href="@{/about}" class="w3-bar-item w3-button">About</a>
-					<a href="#contact" class="w3-bar-item w3-button">Contact</a>
-					<a data-th-href="@{/public/api/users/profile}" class="w3-bar-item w3-button" data-th-if="${#httpServletRequest.remoteUser}">Profile</a>
-					<a data-th-href="@{/login}" class="w3-bar-item w3-button w3-khaki" data-th-unless="${#httpServletRequest.remoteUser}">Login</a>
-					<form class="w3-bar-item" style="padding:0;" data-th-action="@{/logout}" method="post" data-th-if="${#httpServletRequest.remoteUser}">
-						<input class="w3-button w3-khaki" type="submit" value="Sign Out"/>
+					<!--<div class="w3-dropdown-hover">
+						<a class="w3-button w3-hover-theme-d3 w3-theme-d3">BROWSE</a>
+						<div class="w3-dropdown-content w3-bar-block w3-card-4" style="max-width: 300px!important;">
+							<div class="w3-text-white w3-theme-d3" style="padding:0;height: 20px;"><i class="material-icons" style="padding-left: 35px;">expand_less</i></div>
+							<span class="w3-bar-item w3-border-bottom">Meal Type <i style="vertical-align:middle;" class="material-icons">expand_more</i></span>
+							<a href="#" class="w3-bar-item w3-button">Appetizers &amp; Snacks</a>
+							<a href="#" class="w3-bar-item w3-button">Breakfast &amp; Brunch</a>
+							<a href="#" class="w3-bar-item w3-button">Desserts</a>
+							<a href="#" class="w3-bar-item w3-button">Dinner</a>
+							<a href="#" class="w3-bar-item w3-button">Drinks</a>
+							<span class="w3-bar-item w3-border-bottom">Dish Type <i style="vertical-align:middle;" class="material-icons">expand_more</i></span>
+							<a href="#" class="w3-bar-item w3-button">Dishs</a>
+							<a href="#" class="w3-bar-item w3-button">Breads</a>
+							<a href="#" class="w3-bar-item w3-button">Cakes</a>
+							<a href="#" class="w3-bar-item w3-button">Candy</a>
+							<a href="#" class="w3-bar-item w3-button">Cookie</a>
+							<a href="#" class="w3-bar-item w3-button">Pasta</a>
+							<a href="#" class="w3-bar-item w3-button">Pie</a>
+							<a href="#" class="w3-bar-item w3-button">Pizza</a>
+							<a href="#" class="w3-bar-item w3-button">Salads</a>
+							<a href="#" class="w3-bar-item w3-button">Smoothies</a>
+							<a href="#" class="w3-bar-item w3-button">Sandwich</a>
+							<a href="#" class="w3-bar-item w3-button">Soups, Stews &amp; Chili</a>
+							<a href="#" class="w3-bar-item w3-button">Juice</a>
+						</div>
+					</div>-->
+					<a data-th-href="@{/recipes}" class="w3-bar-item w3-button hover-no" data-th-if="${isAuthenticated}">Recipes</a>
+					<a data-th-href="@{/admin/users}" class="w3-bar-item w3-button hover-no" data-th-if="${isAdmin}">Users</a>
+					<a data-th-href="@{/about}" class="w3-bar-item w3-button hover-no">About</a>
+					<a data-th-href="@{/contact-us}" class="w3-bar-item w3-button hover-no">Contact</a>
+					<a data-th-href="@{/profile}" class="w3-bar-item w3-button hover-no" data-th-if="${isAuthenticated}">Profile</a>
+					<a data-th-href="@{/login}" class="w3-bar-item w3-button w3-theme-l1 hover-no" data-th-if="${isAnonymous}">Login</a>
+					<form class="w3-bar-item" style="padding:0;" data-th-action="@{/logout}" method="post" data-th-if="${isAuthenticated}">
+						<input class="w3-button w3-theme-l1 hover-no" type="submit" value="Sign Out"/>
 					</form>
-					<a data-th-href="@{/registration}" class="w3-bar-item w3-button w3-black" data-th-unless="${#httpServletRequest.remoteUser}">Sign Up</a>
+					<a data-th-href="@{/registration}" class="w3-bar-item w3-button w3-theme-d1 hover-no" data-th-if="${isAnonymous}">Sign Up</a>
 				</div>
 			</div>
 		</div>

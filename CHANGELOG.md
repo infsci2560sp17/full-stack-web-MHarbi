@@ -8,6 +8,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 - Fix an error in adding comments
 - Change the website theme
 - Build a template and uniform the header and footer for all pages
+- Upload multiple images to recipes
+- Recipe
+    - Update / Delete
+    - View detalis using ajax
+    - Each user has full control over its own recipes (add/update/delete).
+- Validation of forms using Javascript
+- Anonymous user can explore the recipes.
+- Admin has full control over all users/recipes data.
+- update About page
 
 ## [v1.4] - 2017-03-25
 ### Added
